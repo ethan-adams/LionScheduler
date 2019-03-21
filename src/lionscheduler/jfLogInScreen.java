@@ -39,7 +39,7 @@ public class jfLogInScreen extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Penn State Berks - Lion Scheduler");
 
-        ImageIcon lionSchedulerLogo = new ImageIcon("images\\LionSchedulerLogo.png");
+        ImageIcon lionSchedulerLogo = new ImageIcon("src\\images\\LionSchedulerLogo.png");
         jlLogoLabel.setIcon(lionSchedulerLogo);
 
         jlUserName.setText("UserName:");
