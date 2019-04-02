@@ -5,16 +5,17 @@
  */
 package lionscheduler;
 
+import java.util.Scanner;
 import javax.swing.ImageIcon;
 
 /**
  *
- * @author ejb5674
+ * @author Emily Beltre
  */
 public class jfLogInScreen extends javax.swing.JFrame {
 
     /**
-     * Creates new form logInScreen
+     * Creates new form jfLogInScreen
      */
     public jfLogInScreen() {
         initComponents();
@@ -29,73 +30,104 @@ public class jfLogInScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jlLogoLabel = new javax.swing.JLabel();
-        jlUserName = new javax.swing.JLabel();
-        jlPassword = new javax.swing.JLabel();
-        jtfPassword = new javax.swing.JTextField();
-        jtfUserName = new javax.swing.JTextField();
-        jbLogIn = new javax.swing.JButton();
+        jtfUsernameField = new javax.swing.JTextField();
+        jbLogInButton = new javax.swing.JButton();
+        jlUsernameLabel = new javax.swing.JLabel();
+        jlPasswordLabel = new javax.swing.JLabel();
+        jlLionSchedulerLogo = new javax.swing.JLabel();
+        jpfPasswordField = new javax.swing.JPasswordField();
+        jlLogInFailedMessage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Penn State Berks - Lion Scheduler");
+        setTitle("Lion Scheduler - Penn State Berks");
 
-        ImageIcon lionSchedulerLogo = new ImageIcon("src\\images\\LionSchedulerLogo.png");
-        jlLogoLabel.setIcon(lionSchedulerLogo);
+        jtfUsernameField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
-        jlUserName.setText("UserName:");
+        jbLogInButton.setText("Log In");
+        jbLogInButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLogInButtonActionPerformed(evt);
+            }
+        });
 
-        jlPassword.setText("Password:");
+        jlUsernameLabel.setText("Username");
 
-        jbLogIn.setText("Log In");
+        jlPasswordLabel.setText("Password");
+
+        ImageIcon lionSchedulerLogoIcon = new ImageIcon("images\\LionSchedulerLogo.png");
+        jlLionSchedulerLogo.setIcon(lionSchedulerLogoIcon);
+        jlLionSchedulerLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LionSchedulerLogo.png"))); // NOI18N
+
+        jlLogInFailedMessage.setForeground(new java.awt.Color(204, 0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
+                .addContainerGap(46, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlPassword)
-                            .addComponent(jlUserName))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(166, 166, 166))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jlPasswordLabel)
+                            .addComponent(jlUsernameLabel)
+                            .addComponent(jtfUsernameField)
+                            .addComponent(jbLogInButton, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                            .addComponent(jpfPasswordField))
+                        .addGap(190, 190, 190))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jlLogoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36))
+                        .addComponent(jlLionSchedulerLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jbLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(199, 199, 199))))
+                        .addComponent(jlLogInFailedMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(105, 105, 105))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jlLogoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlUserName)
-                    .addComponent(jtfUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlPassword)
-                    .addComponent(jtfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jbLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jlLionSchedulerLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlLogInFailedMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jlUsernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtfUsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlPasswordLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jpfPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jbLogInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbLogInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLogInButtonActionPerformed
+        
+        if (jtfUsernameField.getText().equals("user") 
+                && jpfPasswordField.getText().equals("password"))
+        {
+            // Add Home page class here
+            lionScheduleMainScreen homePage = new lionScheduleMainScreen();
+            homePage.setVisible(true);   
+           
+        } // if
+        else 
+        {
+            jlLogInFailedMessage.setText("Username or Password is incorrect."
+                    + " Please try again.");   
+        } // else 
+        
+    }//GEN-LAST:event_jbLogInButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) 
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -118,22 +150,25 @@ public class jfLogInScreen extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(jfLogInScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new jfLogInScreen().setVisible(true);
+                new jfLogInScreen().setVisible(true);        
             }
         });
-    }
+        
+        
+        
+    } // MAIN
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jbLogIn;
-    private javax.swing.JLabel jlLogoLabel;
-    private javax.swing.JLabel jlPassword;
-    private javax.swing.JLabel jlUserName;
-    private javax.swing.JTextField jtfPassword;
-    private javax.swing.JTextField jtfUserName;
+    private javax.swing.JButton jbLogInButton;
+    private javax.swing.JLabel jlLionSchedulerLogo;
+    private javax.swing.JLabel jlLogInFailedMessage;
+    private javax.swing.JLabel jlPasswordLabel;
+    private javax.swing.JLabel jlUsernameLabel;
+    private javax.swing.JPasswordField jpfPasswordField;
+    private javax.swing.JTextField jtfUsernameField;
     // End of variables declaration//GEN-END:variables
 }
