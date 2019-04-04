@@ -126,6 +126,11 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
         jLabel2.setText("PM");
 
         jbSubmit.setText("Submit");
+        jbSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSubmitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -265,6 +270,12 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
     private void jFTFtime2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFTFtime2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jFTFtime2ActionPerformed
+
+    private void jbSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSubmitActionPerformed
+        //make sure data gets sent to backend before the frame actually closes
+        dispose();		
+	System.out.println("Prefences closed.");	
+    }//GEN-LAST:event_jbSubmitActionPerformed
 
     /**
      * @param args the command line arguments
