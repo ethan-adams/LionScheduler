@@ -14,8 +14,9 @@ import javax.swing.DefaultComboBoxModel;
 public class professorPreferenceFrame extends javax.swing.JFrame {
     
     String[] subItem1 = {"Bartolacci", "Clark", "Konak", "Maurer", "Nasereddin", "Weisser"};
-    String[] subItem2 = {"test1","test2"};
-
+    String[] subItem2 = {"Amaral","Aurentz", "Cronrath", "Durham",};
+    String[] subItem3 = {};
+    String[] subItem4 = {"Alikhani", "Ansari", "Harris", "Hassler", "Jagadesan", "Martinez-Garza", "Pumariega", "Queen", "Scheaffer", "Sciple", "Shaparenko", "Smith", "Tjoe"};
     /**
      * Creates new form professorPreferenceFrame
      */
@@ -120,7 +121,7 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
 
         jLDepartment.setText("Department:");
 
-        jCBDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IST & SRA", "Accounting" }));
+        jCBDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IST & SRA", "Chemistry", "Biology", "Math" }));
         jCBDepartment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBDepartmentActionPerformed(evt);
@@ -322,9 +323,17 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
         {
             jCBProfessor.setModel(new DefaultComboBoxModel(subItem1));
         }
-        else
+        else if(item == "Chemistry")
         {
             jCBProfessor.setModel(new DefaultComboBoxModel(subItem2));
+        }
+        else if(item == "Biology")
+        {
+            jCBProfessor.setModel(new DefaultComboBoxModel(subItem3));
+        }
+        else if(item == "Math")
+        {
+            jCBProfessor.setModel(new DefaultComboBoxModel(subItem4));
         }
     }//GEN-LAST:event_jCBDepartmentActionPerformed
 
