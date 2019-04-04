@@ -52,16 +52,16 @@
                                   <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                                   <Component id="jlProfessor" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jCBProfessor" min="-2" pref="52" max="-2" attributes="0"/>
+                                  <Component id="jCBProfessor" min="-2" pref="99" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jlDays" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jlMonday" alignment="0" min="-2" pref="14" max="-2" attributes="0"/>
-                                      <Component id="jCheckMonday" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jCheckMonday" max="32767" attributes="0"/>
+                                      <Component id="jlMonday" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jlTuesday" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jCheckTuesday" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -81,49 +81,64 @@
                                       <Component id="jlFriday" min="-2" max="-2" attributes="0"/>
                                       <Component id="jCheckFriday" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                          <Component id="jbSubmit" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                                  <Component id="jCheckSaturday" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jlSaturday" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              </Group>
+                                              <Component id="jCheckSaturday" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jlSaturday" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
                                                   <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                                                   <Component id="jCheckSunday" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="jlSunday" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jlSunday" alignment="1" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                                          <Component id="jbSubmit" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jlTime" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  <Component id="jFTFtime2" min="-2" pref="46" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jFTFTimeMorning" min="-2" pref="52" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jCBTimeSelect" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jFTFBreakTime" min="-2" pref="52" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jCBTimeSelect2" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLDash" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jLDash1" max="32767" attributes="0"/>
+                                      <Component id="jLDash" max="32767" attributes="0"/>
+                                  </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jFTFtime1" min="-2" pref="46" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="jFTFTimeAfternoon" min="-2" pref="52" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jCBTimeSelect1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="jFTFBreakTime2" min="-2" pref="52" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jCBTimeSelect3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                           </Group>
-                          <EmptySpace pref="10" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -158,7 +173,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jlDays" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jlMonday" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jlMonday" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                       <Component id="jlTuesday" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jlWednesDay" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jlThursday" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -180,15 +195,22 @@
                           <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jlTime" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jFTFtime2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jFTFTimeMorning" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLDash" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jFTFtime1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jFTFTimeAfternoon" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jCBTimeSelect" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jCBTimeSelect1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="26" max="32767" attributes="0"/>
-                          <Component id="jLBreak" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLBreak" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jFTFBreakTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jCBTimeSelect2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jFTFBreakTime2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLDash1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jCBTimeSelect3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="34" max="32767" attributes="0"/>
                           <Component id="jbSubmit" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
@@ -202,12 +224,12 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JFormattedTextField" name="jFTFtime2">
+        <Component class="javax.swing.JFormattedTextField" name="jFTFTimeMorning">
           <Properties>
             <Property name="text" type="java.lang.String" value="HH:MM"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFTFtime2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFTFTimeMorningActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLDash">
@@ -215,20 +237,13 @@
             <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="AM"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="PM"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="jbSubmit">
           <Properties>
             <Property name="text" type="java.lang.String" value="Submit"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbSubmitActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckFriday">
         </Component>
@@ -238,7 +253,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jlMonday">
           <Properties>
-            <Property name="text" type="java.lang.String" value="  M"/>
+            <Property name="text" type="java.lang.String" value=" M"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jlTuesday">
@@ -248,7 +263,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jlWednesDay">
           <Properties>
-            <Property name="text" type="java.lang.String" value="  W"/>
+            <Property name="text" type="java.lang.String" value=" W"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jlThursday">
@@ -258,12 +273,12 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jlFriday">
           <Properties>
-            <Property name="text" type="java.lang.String" value="F"/>
+            <Property name="text" type="java.lang.String" value="  F"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jlSaturday">
           <Properties>
-            <Property name="text" type="java.lang.String" value="S"/>
+            <Property name="text" type="java.lang.String" value="  S"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jlSunday">
@@ -318,7 +333,7 @@
             <Property name="text" type="java.lang.String" value="Time:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="jFTFtime1">
+        <Component class="javax.swing.JFormattedTextField" name="jFTFTimeAfternoon">
           <Properties>
             <Property name="text" type="java.lang.String" value="HH:MM"/>
           </Properties>
@@ -347,6 +362,79 @@
         <Component class="javax.swing.JLabel" name="jLBreak">
           <Properties>
             <Property name="text" type="java.lang.String" value="Break:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="jFTFBreakTime">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="HH:MM"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFTFBreakTimeActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jCBTimeSelect">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="AM"/>
+                <StringItem index="1" value="PM"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jCBTimeSelect1">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="AM"/>
+                <StringItem index="1" value="PM"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jCBTimeSelect2">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="AM"/>
+                <StringItem index="1" value="PM"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jCBTimeSelect3">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="AM"/>
+                <StringItem index="1" value="PM"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="jFTFBreakTime2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="HH:MM"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFTFBreakTime2ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLDash1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
         </Component>
       </SubComponents>
