@@ -40,29 +40,153 @@ public class jfLionScheduler extends javax.swing.JFrame {
     private void initComponents() {
 
         jpCalendarPanel = new javax.swing.JPanel();
+        jlFilterLabel = new javax.swing.JLabel();
+        jlSubjectLabel = new javax.swing.JLabel();
+        jcbSubjects = new javax.swing.JComboBox<>();
+        jcbCourses1 = new javax.swing.JComboBox<>();
+        jlCourseLabel = new javax.swing.JLabel();
+        jlProfessorLabel = new javax.swing.JLabel();
+        jcbProfessors = new javax.swing.JComboBox<>();
+        jlDaysLabel = new javax.swing.JLabel();
+        jcbMonday = new javax.swing.JCheckBox();
+        jcbTuesday = new javax.swing.JCheckBox();
+        jcbWednesday = new javax.swing.JCheckBox();
+        jcbThursday = new javax.swing.JCheckBox();
+        jcbFriday = new javax.swing.JCheckBox();
+        jcbSaturday = new javax.swing.JCheckBox();
+        jcbSunday = new javax.swing.JCheckBox();
+        jlTimeLabel = new javax.swing.JLabel();
         jtbTools = new javax.swing.JToolBar();
         jbCreateCourse = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         jbPreferences = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         jbGenerateReport = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtLeftTree = new javax.swing.JTree();
         jmMenu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jlFilterLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jlFilterLabel.setText("Fillter By:");
+
+        jlSubjectLabel.setText("Subject:");
+
+        jcbSubjects.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jcbCourses1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jlCourseLabel.setText("Course:");
+
+        jlProfessorLabel.setText("Professor:");
+
+        jcbProfessors.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbProfessors.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbProfessorsActionPerformed(evt);
+            }
+        });
+
+        jlDaysLabel.setText("Days:");
+
+        jcbMonday.setText("Monday");
+
+        jcbTuesday.setText("Tuesday");
+
+        jcbWednesday.setText("Wednesday");
+
+        jcbThursday.setText("Thursday");
+
+        jcbFriday.setText("Friday");
+
+        jcbSaturday.setText("Saturday");
+
+        jcbSunday.setText("Sunday");
+
+        jlTimeLabel.setText("Time:");
+
         javax.swing.GroupLayout jpCalendarPanelLayout = new javax.swing.GroupLayout(jpCalendarPanel);
         jpCalendarPanel.setLayout(jpCalendarPanelLayout);
         jpCalendarPanelLayout.setHorizontalGroup(
             jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGroup(jpCalendarPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpCalendarPanelLayout.createSequentialGroup()
+                        .addGroup(jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpCalendarPanelLayout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addGroup(jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jpCalendarPanelLayout.createSequentialGroup()
+                                        .addGroup(jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jcbFriday)
+                                            .addComponent(jcbThursday)
+                                            .addComponent(jcbWednesday))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(jpCalendarPanelLayout.createSequentialGroup()
+                                        .addGroup(jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jcbTuesday)
+                                            .addComponent(jcbMonday))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jcbSaturday)
+                                            .addComponent(jcbSunday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addGroup(jpCalendarPanelLayout.createSequentialGroup()
+                                .addGroup(jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlSubjectLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jlCourseLabel)
+                                    .addComponent(jlProfessorLabel)
+                                    .addComponent(jlDaysLabel)
+                                    .addComponent(jlTimeLabel)
+                                    .addComponent(jlFilterLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jpCalendarPanelLayout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jcbProfessors, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(586, 586, 586))
+                    .addGroup(jpCalendarPanelLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jcbCourses1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcbSubjects, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jpCalendarPanelLayout.setVerticalGroup(
             jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jpCalendarPanelLayout.createSequentialGroup()
+                .addComponent(jlFilterLabel)
+                .addGap(14, 14, 14)
+                .addComponent(jlSubjectLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jcbSubjects, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jlCourseLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jcbCourses1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(jlProfessorLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jcbProfessors, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jlDaysLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcbMonday)
+                    .addComponent(jcbSaturday))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcbTuesday)
+                    .addComponent(jcbSunday))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jcbWednesday)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jcbThursday)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jcbFriday)
+                .addGap(18, 18, 18)
+                .addComponent(jlTimeLabel)
+                .addGap(0, 143, Short.MAX_VALUE))
         );
 
         jtbTools.setRollover(true);
@@ -92,8 +216,6 @@ public class jfLionScheduler extends javax.swing.JFrame {
         jbGenerateReport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jtbTools.add(jbGenerateReport);
 
-        jScrollPane1.setViewportView(jtLeftTree);
-
         jMenu1.setText("File");
         jmMenu.add(jMenu1);
 
@@ -106,22 +228,18 @@ public class jfLionScheduler extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtbTools, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jpCalendarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addComponent(jtbTools, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jtbTools, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
-                    .addComponent(jpCalendarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jpCalendarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -132,6 +250,10 @@ public class jfLionScheduler extends javax.swing.JFrame {
         professorPreferenceFrame prefs = new professorPreferenceFrame();
         prefs.setVisible(true);
     }//GEN-LAST:event_jbPreferencesActionPerformed
+
+    private void jcbProfessorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbProfessorsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbProfessorsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,15 +288,29 @@ public class jfLionScheduler extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JButton jbCreateCourse;
     private javax.swing.JButton jbGenerateReport;
     private javax.swing.JButton jbPreferences;
+    private javax.swing.JComboBox<String> jcbCourses1;
+    private javax.swing.JCheckBox jcbFriday;
+    private javax.swing.JCheckBox jcbMonday;
+    private javax.swing.JComboBox<String> jcbProfessors;
+    private javax.swing.JCheckBox jcbSaturday;
+    private javax.swing.JComboBox<String> jcbSubjects;
+    private javax.swing.JCheckBox jcbSunday;
+    private javax.swing.JCheckBox jcbThursday;
+    private javax.swing.JCheckBox jcbTuesday;
+    private javax.swing.JCheckBox jcbWednesday;
+    private javax.swing.JLabel jlCourseLabel;
+    private javax.swing.JLabel jlDaysLabel;
+    private javax.swing.JLabel jlFilterLabel;
+    private javax.swing.JLabel jlProfessorLabel;
+    private javax.swing.JLabel jlSubjectLabel;
+    private javax.swing.JLabel jlTimeLabel;
     private javax.swing.JMenuBar jmMenu;
     private javax.swing.JPanel jpCalendarPanel;
-    private javax.swing.JTree jtLeftTree;
     private javax.swing.JToolBar jtbTools;
     // End of variables declaration//GEN-END:variables
 }
