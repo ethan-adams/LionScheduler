@@ -5,6 +5,7 @@
  */
 package lionscheduler;
 
+import java.sql.*;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -12,17 +13,13 @@ import javax.swing.DefaultComboBoxModel;
  * @author mch5367
  */
 public class professorPreferenceFrame extends javax.swing.JFrame {
-    
-    String[] subItem1 = {"Bartolacci", "Clark", "Konak", "Maurer", "Nasereddin", "Weisser"};
-    String[] subItem2 = {"Amaral","Aurentz", "Cronrath", "Durham",};
-    String[] subItem3 = {};
-    String[] subItem4 = {"Alikhani", "Ansari", "Harris", "Hassler", "Jagadesan", "Martinez-Garza", "Pumariega", "Queen", "Scheaffer", "Sciple", "Shaparenko", "Smith", "Tjoe"};
     /**
      * Creates new form professorPreferenceFrame
      */
     public professorPreferenceFrame() {
         initComponents();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -57,8 +54,6 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
         jCheckThursday = new javax.swing.JCheckBox();
         jlTime = new javax.swing.JLabel();
         jFTFTimeAfternoon = new javax.swing.JFormattedTextField();
-        jLDepartment = new javax.swing.JLabel();
-        jCBDepartment = new javax.swing.JComboBox<>();
         jLBreak = new javax.swing.JLabel();
         jFTFBreakTime = new javax.swing.JFormattedTextField();
         jCBTimeSelect = new javax.swing.JComboBox<>();
@@ -119,15 +114,6 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
 
         jFTFTimeAfternoon.setText("HH:MM");
 
-        jLDepartment.setText("Department:");
-
-        jCBDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IST & SRA", "Chemistry", "Biology", "Math" }));
-        jCBDepartment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCBDepartmentActionPerformed(evt);
-            }
-        });
-
         jLBreak.setText("Break:");
 
         jFTFBreakTime.setText("HH:MM");
@@ -159,25 +145,23 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jlProfessorPreferences)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jlProfessorPreferences))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
                                 .addComponent(jlProfessor)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jCBProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jlDays)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jCheckMonday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jlMonday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jlMonday, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jlTuesday)
@@ -224,7 +208,7 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLDash1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLDash, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLDash))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -234,26 +218,15 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jFTFBreakTime2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCBTimeSelect3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLBreak)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLDepartment)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCBDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addComponent(jCBTimeSelect3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLBreak))))
+                .addGap(0, 30, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jlProfessorPreferences)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLDepartment)
-                    .addComponent(jCBDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCBProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -294,12 +267,12 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
                             .addComponent(jFTFBreakTime2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLDash1)
                             .addComponent(jCBTimeSelect3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                         .addComponent(jbSubmit))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jCheckThursday)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGap(43, 43, 43))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -315,27 +288,6 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jCBDepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBDepartmentActionPerformed
-        String item = (String)jCBDepartment.getSelectedItem();
-
-        if(item == "IST & SRA")
-        {
-            jCBProfessor.setModel(new DefaultComboBoxModel(subItem1));
-        }
-        else if(item == "Chemistry")
-        {
-            jCBProfessor.setModel(new DefaultComboBoxModel(subItem2));
-        }
-        else if(item == "Biology")
-        {
-            jCBProfessor.setModel(new DefaultComboBoxModel(subItem3));
-        }
-        else if(item == "Math")
-        {
-            jCBProfessor.setModel(new DefaultComboBoxModel(subItem4));
-        }
-    }//GEN-LAST:event_jCBDepartmentActionPerformed
 
     private void jCBProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBProfessorActionPerformed
         // TODO add your handling code here:
@@ -360,7 +312,7 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws ClassNotFoundException, SQLException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -384,6 +336,8 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(professorPreferenceFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -391,11 +345,29 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
                 new professorPreferenceFrame().setVisible(true);
             }
         });
+        
+
+        Class.forName("com.mysql.jdbc.Driver");  
+        Connection con=DriverManager.getConnection("jdbc:mysql://istdata.bk.psu.edu:3306/bmb5858","bmb5858","berks!bmb5858");
+        
+        String getProfessor = "SELECT Name FROM Faculty";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(getProfessor);
+       
+        while(rs.next())
+        {
+            jCBProfessor.addItem(rs.getString(1));
+        }
+        
+        //jCBProfessor.setModel(new DefaultComboBoxModel(professorName));
+
+        
+        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jCBDepartment;
-    private javax.swing.JComboBox<String> jCBProfessor;
+    public static javax.swing.JComboBox<String> jCBProfessor;
     private javax.swing.JComboBox<String> jCBTimeSelect;
     private javax.swing.JComboBox<String> jCBTimeSelect1;
     private javax.swing.JComboBox<String> jCBTimeSelect2;
@@ -414,7 +386,6 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLBreak;
     private javax.swing.JLabel jLDash;
     private javax.swing.JLabel jLDash1;
-    private javax.swing.JLabel jLDepartment;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jbSubmit;
     private javax.swing.JLabel jlDays;
