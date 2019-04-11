@@ -330,7 +330,8 @@ public class addCourseScreen extends javax.swing.JFrame {
             
             System.out.println("Inserted Successfully");
             JOptionPane.showMessageDialog(null, "Course successfully created!", "Add Course", JOptionPane.INFORMATION_MESSAGE);
-            con.close();  
+            con.close();
+            dispose();
             }catch(Exception e){ System.out.println(e);}  
         
     }//GEN-LAST:event_jButton1ActionPerformed
