@@ -9,9 +9,17 @@ import com.davidmoodie.SwingCalendar.Calendar;
 import com.davidmoodie.SwingCalendar.CalendarEvent;
 import com.davidmoodie.SwingCalendar.WeekCalendar;
 import java.awt.BorderLayout;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -73,7 +81,12 @@ public class jfLionScheduler extends javax.swing.JFrame {
 
         jlSubjectLabel.setText("Subject:");
 
-        jcbSubjects.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbSubjects.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        jcbSubjects.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbSubjectsActionPerformed(evt);
+            }
+        });
 
         jcbCourses1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -254,6 +267,34 @@ public class jfLionScheduler extends javax.swing.JFrame {
     private void jcbProfessorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbProfessorsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbProfessorsActionPerformed
+
+    private void jcbSubjectsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSubjectsActionPerformed
+      
+        try 
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con=DriverManager.getConnection(
+                    "jdbc:mysql://istdata.bk.psu.edu:3306/bmb5858","bmb5858","berks!bmb5858");
+            
+            String strSubjectQuery = "SELECT Subject FROM Course";
+            PreparedStatement psSubjectQuery = con.prepareStatement(strSubjectQuery);
+            ResultSet rs = psSubjectQuery.executeQuery();
+            
+            while (rs.next())
+            {
+                jcbSubjects.addItem(rs.getString("Subject"));
+                
+            } // while
+            
+        } // try
+        
+        catch (ClassNotFoundException | SQLException ex) 
+        {
+            Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
+        } // catch
+
+  
+    }//GEN-LAST:event_jcbSubjectsActionPerformed
 
     /**
      * @param args the command line arguments
