@@ -4,6 +4,12 @@
  * and open the template in the editor.
  */
 package lionscheduler;
+import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.*;
 
 /**
  *
@@ -14,11 +20,13 @@ public class addCourseScreen extends javax.swing.JFrame {
     /**
      * Creates new form addCourseScreen
      */
-    public addCourseScreen() {
-        initComponents();
-        
-    }
-
+    static PreparedStatement psAddCourse;
+    static PreparedStatement psGetIdCourse;
+    static PreparedStatement psGetIdFaculty;
+    static PreparedStatement psGetIdRoom;
+    static PreparedStatement psAddSchedule;
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,7 +45,6 @@ public class addCourseScreen extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField2 = new javax.swing.JTextField();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
         jCheckBox3 = new javax.swing.JCheckBox();
@@ -69,7 +76,6 @@ public class addCourseScreen extends javax.swing.JFrame {
 
         jLabel5.setText("Days");
 
-        cbCourseName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IST", "SRA", "MATH", "ENG" }));
         cbCourseName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbCourseNameActionPerformed(evt);
@@ -77,20 +83,15 @@ public class addCourseScreen extends javax.swing.JFrame {
         });
 
         jTextField1.setText("--Input Course Number--");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dr. Xue", "Dr. Konak", "Prof. Maurer", "Prof Clark" }));
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gaige", "Perkins", "Franco", "Luersson", "Online" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                jTextField1ActionPerformed(evt);
             }
         });
 
-        jTextField2.setText("--Input Room Number--");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                jComboBox2ActionPerformed(evt);
             }
         });
 
@@ -115,17 +116,17 @@ public class addCourseScreen extends javax.swing.JFrame {
 
         jLabel6.setText("Starts at:");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10.11.12" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10.11.12" }));
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60" }));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60" }));
 
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
 
         jLabel7.setText("Ends at: ");
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10.11.12" }));
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10.11.12" }));
 
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60" }));
+        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60" }));
 
         jComboBox8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
 
@@ -141,61 +142,57 @@ public class addCourseScreen extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(30, 30, 30)
-                                .addComponent(cbCourseName, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jLabel2)
+                        .addGap(30, 30, 30)
+                        .addComponent(cbCourseName, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jCheckBox1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox7))
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7))
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox3, 0, 42, Short.MAX_VALUE)
                             .addComponent(jComboBox6, 0, 1, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBox7, 0, 41, Short.MAX_VALUE)
+                            .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jCheckBox1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCheckBox2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCheckBox3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCheckBox4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCheckBox5)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox7)))
                 .addGap(78, 78, 78))
         );
         layout.setVerticalGroup(
@@ -215,8 +212,7 @@ public class addCourseScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -256,21 +252,166 @@ public class addCourseScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //add database link here
-        dispose();
-        System.out.println("addCourse closed.");
+        try{  
+            Class.forName("com.mysql.jdbc.Driver");  
+            Connection con=DriverManager.getConnection(  
+            "jdbc:mysql://istdata.bk.psu.edu:3306/bmb5858","bmb5858","berks!bmb5858");  
+            
+            psAddCourse = con.prepareStatement("insert into course(Subject, Num)\n" +
+            "values(?, ?);");
+            psAddCourse.setString(1, (String)cbCourseName.getSelectedItem());
+            psAddCourse.setInt(2, Integer.parseInt(jTextField1.getText()));
+            psAddCourse.execute();
+            
+            System.out.println("Insert Course Completed");
+            
+            psGetIdCourse = con.prepareStatement("select idCourse from course"
+            + " where Subject = ? AND Num = ?");
+            psGetIdCourse.setString(1, (String)cbCourseName.getSelectedItem());
+            psGetIdCourse.setInt(2, Integer.parseInt(jTextField1.getText()));
+            ResultSet rsIdCourse = psGetIdCourse.executeQuery();
+            rsIdCourse.next();
+            int idCourse = rsIdCourse.getInt(1);
+            
+            System.out.println("Course ID Selected");
+                  
+            psGetIdFaculty = con.prepareStatement("select idFaculty from faculty"
+            + " where Name LIKE ?");
+            psGetIdFaculty.setString(1, (String)jComboBox1.getSelectedItem());
+            ResultSet rsIdFaculty = psGetIdFaculty.executeQuery();
+            rsIdFaculty.next();
+            int idFaculty = rsIdFaculty.getInt(1);
+            
+            System.out.println("Faculty ID Selected");
+            
+            psGetIdRoom = con.prepareStatement("select FacilID from Room " + 
+            "where Location = ?");
+            psGetIdRoom.setString(1, (String)jComboBox2.getSelectedItem());
+            ResultSet rsIdRoom= psGetIdRoom.executeQuery();
+            rsIdRoom.next();
+            int idRoom = rsIdRoom.getInt(1);
+            
+            System.out.println("Room ID Selected");
+            
+            String strBT = jComboBox3.getSelectedItem() + ":" +
+            jComboBox4.getSelectedItem() + ":00 " + jComboBox5.getSelectedItem();
+            DateFormat formatter = new SimpleDateFormat("hh:mm:ss a");
+            java.sql.Time beginTime = new java.sql.Time(formatter.parse(strBT).getTime());
+            
+            System.out.println("Begin Time Selected");
+            
+            String strET = jComboBox6.getSelectedItem() + ":" +
+            jComboBox7.getSelectedItem() + ":00 " + jComboBox8.getSelectedItem();
+            java.sql.Time endTime = new java.sql.Time(formatter.parse(strET).getTime());
+            
+            System.out.println("End Time Selected");
+            
+            psAddSchedule = con.prepareStatement("insert into schedule(Faculty_idFaculty, "
+            + "Course_idCourse, Room_idRoom, BeginTime, EndTime, Mon, Tue, Wed, Thu, Fri, "
+            + "Sat, Sun) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            psAddSchedule.setInt(1, idFaculty);
+            psAddSchedule.setInt(2, idCourse);
+            psAddSchedule.setInt(3, idRoom);
+            psAddSchedule.setTime(4, beginTime);
+            psAddSchedule.setTime(5, endTime);
+            psAddSchedule.setBoolean(6, jCheckBox1.isSelected());
+            psAddSchedule.setBoolean(7, jCheckBox2.isSelected());
+            psAddSchedule.setBoolean(8, jCheckBox3.isSelected());
+            psAddSchedule.setBoolean(9, jCheckBox4.isSelected());
+            psAddSchedule.setBoolean(10, jCheckBox5.isSelected());
+            psAddSchedule.setBoolean(11, jCheckBox6.isSelected());
+            psAddSchedule.setBoolean(12, jCheckBox7.isSelected());
+            psAddSchedule.executeUpdate();
+            
+            System.out.println("Inserted Successfully");
+            JOptionPane.showMessageDialog(null, "Course successfully created!", "Add Course", JOptionPane.INFORMATION_MESSAGE);
+            con.close();  
+            }catch(Exception e){ System.out.println(e);}  
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbCourseName;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JCheckBox jCheckBox4;
+    private javax.swing.JCheckBox jCheckBox5;
+    private javax.swing.JCheckBox jCheckBox6;
+    private javax.swing.JCheckBox jCheckBox7;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> jComboBox5;
+    private javax.swing.JComboBox<String> jComboBox6;
+    private javax.swing.JComboBox<String> jComboBox7;
+    private javax.swing.JComboBox<String> jComboBox8;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JTextField jTextField1;
+    // End of variables declaration//GEN-END:variables
+    
+    
+    public addCourseScreen() {          
+        initComponents();
+                try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con=DriverManager.getConnection(
+            "jdbc:mysql://istdata.bk.psu.edu:3306/bmb5858","bmb5858","berks!bmb5858");
+
+            Statement stmt1 = con.createStatement();
+            Statement stmt2 = con.createStatement();
+            Statement stmt3 = con.createStatement();
+            ResultSet rsCourse = stmt1.executeQuery("select distinct subject from Course;");
+            ResultSet rsProfessor = stmt2.executeQuery("select Name from Faculty where name != '';");
+            ResultSet rsRoom = stmt3.executeQuery("select Location from Room;");
+           
+            while(rsCourse.next())
+            {
+                cbCourseName.addItem(rsCourse.getString(1));
+            }
+            while(rsProfessor.next())
+            {
+                jComboBox1.addItem(rsProfessor.getString(1));
+            }
+            while(rsRoom.next())
+            {
+                jComboBox2.addItem(rsRoom.getString(1));
+            }
+            
+            stmt1.close();
+            stmt2.close();
+            stmt3.close();
+            rsCourse.close();
+            rsProfessor.close();
+            rsRoom.close();
+            con.close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(addCourseScreen.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(addCourseScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+    }
+        /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -301,37 +442,7 @@ public class addCourseScreen extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new addCourseScreen().setVisible(true);
-                
             }
         });
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cbCourseName;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
-    private javax.swing.JCheckBox jCheckBox7;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JComboBox<String> jComboBox6;
-    private javax.swing.JComboBox<String> jComboBox7;
-    private javax.swing.JComboBox<String> jComboBox8;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    // End of variables declaration//GEN-END:variables
 }
