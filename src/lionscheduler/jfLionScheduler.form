@@ -44,7 +44,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jpCalendarPanel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="20" max="32767" attributes="0"/>
+              <EmptySpace pref="25" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -68,57 +68,55 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jlSubjectLabel" min="-2" pref="88" max="-2" attributes="0"/>
+                              <Component id="jlCourseLabel" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlProfessorLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlDaysLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlFilterLabel" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jcbFriday" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jcbThursday" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jcbWednesday" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jcbTuesday" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jcbMonday" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jcbSaturday" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jcbSunday" alignment="0" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jlSubjectLabel" min="-2" pref="88" max="-2" attributes="0"/>
-                                      <Component id="jlCourseLabel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jlProfessorLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jlDaysLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jlTimeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jlFilterLabel" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                                          <Component id="jcbProfessors" min="-2" pref="119" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace pref="65" max="-2" attributes="0"/>
+                                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                  <Component id="jcbProfessors" min="-2" pref="119" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="586" max="-2" attributes="0"/>
+                          <EmptySpace min="651" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jcbFriday" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jcbThursday" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jcbWednesday" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jcbSaturday" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jcbTuesday" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jcbMonday" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jcbSunday" alignment="0" pref="85" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="671" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jcbCourses1" min="-2" pref="119" max="-2" attributes="0"/>
-                              <Component id="jcbSubjects" min="-2" pref="119" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jcbCourses1" min="-2" pref="119" max="-2" attributes="0"/>
+                                      <Component id="jcbSubjects" min="-2" pref="119" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jlStartTimeLabel" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jsStartTime" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jlEndTimeLabel" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jsEndTime" min="-2" pref="74" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="610" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -143,24 +141,35 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jlDaysLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jcbMonday" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jcbSaturday" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jcbMonday" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jcbTuesday" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jcbSunday" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jcbTuesday" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jcbWednesday" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jcbThursday" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jcbFriday" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jlTimeLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="143" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="jcbFriday" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jcbSaturday" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jcbSunday" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jlStartTimeLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="jlEndTimeLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jsStartTime" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jsEndTime" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="63" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -275,10 +284,29 @@
             <Property name="text" type="java.lang.String" value="Sunday"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jlTimeLabel">
+        <Component class="javax.swing.JLabel" name="jlStartTimeLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Time:"/>
+            <Property name="text" type="java.lang.String" value="Start Time:"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jlEndTimeLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="End Time:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="jsStartTime">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner()"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="SimpleDateFormat sdfStart = new SimpleDateFormat(&quot;hh:mm&quot;);&#xa;try&#xa;{&#xa;     startTime = sdfStart.parse(&quot;00:00&quot;);&#xa;} // try&#xa;catch (ParseException ex)&#xa;{&#xa;&#xa;} // catch"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jsStartTime.setModel(new SpinnerDateModel());&#xa;jsStartTime.setEditor(new JSpinner.DateEditor(jsStartTime, &quot;hh:mm&quot;));&#xa;jsStartTime.setValue(startTime);"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="jsEndTime">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner()"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="SimpleDateFormat sdfEnd = new SimpleDateFormat(&quot;hh:mm&quot;);&#xa;try&#xa;{&#xa;     endTime = sdfEnd.parse(&quot;00:00&quot;);&#xa;} // try&#xa;catch (ParseException ex)&#xa;{&#xa;&#xa;} // catch"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jsEndTime.setModel(new SpinnerDateModel());&#xa;jsEndTime.setEditor(new JSpinner.DateEditor(jsEndTime, &quot;hh:mm&quot;));&#xa;jsEndTime.setValue(endTime);"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
