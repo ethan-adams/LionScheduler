@@ -56,7 +56,7 @@ public class jfLogInScreen extends javax.swing.JFrame {
 
         ImageIcon lionSchedulerLogoIcon = new ImageIcon("images\\LionSchedulerLogo.png");
         jlLionSchedulerLogo.setIcon(lionSchedulerLogoIcon);
-        jlLionSchedulerLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LionSchedulerLogo.png"))); // NOI18N
+        jlLionSchedulerLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lionscheduler/LionSchedulerLogo.png"))); // NOI18N
 
         jlLogInFailedMessage.setForeground(new java.awt.Color(204, 0, 0));
 
@@ -111,7 +111,7 @@ public class jfLogInScreen extends javax.swing.JFrame {
                 && jpfPasswordField.getText().equals("password"))
         {
             // Add Home page class here
-            lionScheduleMainScreen homePage = new lionScheduleMainScreen();
+            jfLionScheduler homePage = new jfLionScheduler();
             
             this.setVisible(false); // closes login screen
             homePage.setVisible(true); // opens main screen  
