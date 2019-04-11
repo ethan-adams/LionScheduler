@@ -56,7 +56,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jpCalendarPanel = new javax.swing.JPanel();
+        jpFilterPanel = new javax.swing.JPanel();
         jlFilterLabel = new javax.swing.JLabel();
         jlSubjectLabel = new javax.swing.JLabel();
         jcbSubjects = new javax.swing.JComboBox<>();
@@ -159,55 +159,55 @@ public class jfLionScheduler extends javax.swing.JFrame {
         jsEndTime.setEditor(new JSpinner.DateEditor(jsEndTime, "hh:mm"));
         jsEndTime.setValue(endTime);
 
-        javax.swing.GroupLayout jpCalendarPanelLayout = new javax.swing.GroupLayout(jpCalendarPanel);
-        jpCalendarPanel.setLayout(jpCalendarPanelLayout);
-        jpCalendarPanelLayout.setHorizontalGroup(
-            jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpCalendarPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout jpFilterPanelLayout = new javax.swing.GroupLayout(jpFilterPanel);
+        jpFilterPanel.setLayout(jpFilterPanelLayout);
+        jpFilterPanelLayout.setHorizontalGroup(
+            jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpFilterPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpCalendarPanelLayout.createSequentialGroup()
-                        .addGroup(jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpFilterPanelLayout.createSequentialGroup()
+                        .addGroup(jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlSubjectLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jlCourseLabel)
                             .addComponent(jlProfessorLabel)
                             .addComponent(jlDaysLabel)
                             .addComponent(jlFilterLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jpCalendarPanelLayout.createSequentialGroup()
+                            .addGroup(jpFilterPanelLayout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(jcbProfessors, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jpCalendarPanelLayout.createSequentialGroup()
+                    .addGroup(jpFilterPanelLayout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addGroup(jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jcbFriday)
                             .addComponent(jcbThursday)
                             .addComponent(jcbWednesday)
                             .addComponent(jcbSaturday)
                             .addComponent(jcbTuesday)
                             .addComponent(jcbMonday)
-                            .addComponent(jcbSunday, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+                            .addComponent(jcbSunday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(671, 671, 671))
-                    .addGroup(jpCalendarPanelLayout.createSequentialGroup()
-                        .addGroup(jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpCalendarPanelLayout.createSequentialGroup()
+                    .addGroup(jpFilterPanelLayout.createSequentialGroup()
+                        .addGroup(jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpFilterPanelLayout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addGroup(jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jcbCourses1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jcbSubjects, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jpCalendarPanelLayout.createSequentialGroup()
-                                .addGroup(jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpFilterPanelLayout.createSequentialGroup()
+                                .addGroup(jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jlStartTimeLabel)
                                     .addComponent(jsStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(17, 17, 17)
-                                .addGroup(jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jlEndTimeLabel)
                                     .addComponent(jsEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 610, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
-        jpCalendarPanelLayout.setVerticalGroup(
-            jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpCalendarPanelLayout.createSequentialGroup()
+        jpFilterPanelLayout.setVerticalGroup(
+            jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpFilterPanelLayout.createSequentialGroup()
                 .addComponent(jlFilterLabel)
                 .addGap(14, 14, 14)
                 .addComponent(jlSubjectLabel)
@@ -232,8 +232,8 @@ public class jfLionScheduler extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jcbThursday)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jpCalendarPanelLayout.createSequentialGroup()
+                .addGroup(jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpFilterPanelLayout.createSequentialGroup()
                         .addComponent(jcbFriday)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jcbSaturday)
@@ -242,10 +242,10 @@ public class jfLionScheduler extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jlStartTimeLabel)
                         .addGap(34, 34, 34))
-                    .addGroup(jpCalendarPanelLayout.createSequentialGroup()
+                    .addGroup(jpFilterPanelLayout.createSequentialGroup()
                         .addComponent(jlEndTimeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jsStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jsEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(63, Short.MAX_VALUE))
@@ -290,18 +290,18 @@ public class jfLionScheduler extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtbTools, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jtbTools, javax.swing.GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jpCalendarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addComponent(jpFilterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jtbTools, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jpCalendarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jpFilterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -401,7 +401,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
     private javax.swing.JLabel jlStartTimeLabel;
     private javax.swing.JLabel jlSubjectLabel;
     private javax.swing.JMenuBar jmMenu;
-    private javax.swing.JPanel jpCalendarPanel;
+    private javax.swing.JPanel jpFilterPanel;
     private javax.swing.JSpinner jsEndTime;
     private javax.swing.JSpinner jsStartTime;
     private javax.swing.JToolBar jtbTools;
