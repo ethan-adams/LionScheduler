@@ -6,7 +6,12 @@
 package lionscheduler;
 
 import java.sql.*;
-import javax.swing.DefaultComboBoxModel;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+import java.util.Date;
 
 /**
  *
@@ -16,6 +21,7 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
     /**
      * Creates new form professorPreferenceFrame
      */
+    Date def;
     public professorPreferenceFrame() {
         initComponents();
     }
@@ -31,8 +37,6 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jFTFTimeMorning = new javax.swing.JFormattedTextField();
-        jLDash = new javax.swing.JLabel();
         jbSubmit = new javax.swing.JButton();
         jCheckFriday = new javax.swing.JCheckBox();
         jCheckSaturday = new javax.swing.JCheckBox();
@@ -53,26 +57,26 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
         jCheckWednesday = new javax.swing.JCheckBox();
         jCheckThursday = new javax.swing.JCheckBox();
         jlTime = new javax.swing.JLabel();
-        jFTFTimeAfternoon = new javax.swing.JFormattedTextField();
         jLBreak = new javax.swing.JLabel();
         jFTFBreakTime = new javax.swing.JFormattedTextField();
-        jCBTimeSelect = new javax.swing.JComboBox<>();
-        jCBTimeSelect1 = new javax.swing.JComboBox<>();
         jCBTimeSelect2 = new javax.swing.JComboBox<>();
         jCBTimeSelect3 = new javax.swing.JComboBox<>();
         jFTFBreakTime2 = new javax.swing.JFormattedTextField();
         jLDash1 = new javax.swing.JLabel();
+        Date date = new Date();
+        SpinnerDateModel sm = new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
+        jSpinner1 = new javax.swing.JSpinner(sm);
+        SimpleDateFormat fd = new SimpleDateFormat("HH:mm");
+        try
+        {
+            def = fd.parse("00:00");
+        }
+        catch(ParseException ex)
+        {
+        }
+        jSpinner2 = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jFTFTimeMorning.setText("HH:MM");
-        jFTFTimeMorning.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFTFTimeMorningActionPerformed(evt);
-            }
-        });
-
-        jLDash.setText("-");
 
         jbSubmit.setText("Submit");
         jbSubmit.addActionListener(new java.awt.event.ActionListener() {
@@ -112,8 +116,6 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
 
         jlTime.setText("Time:");
 
-        jFTFTimeAfternoon.setText("HH:MM");
-
         jLBreak.setText("Break:");
 
         jFTFBreakTime.setText("HH:MM");
@@ -122,10 +124,6 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
                 jFTFBreakTimeActionPerformed(evt);
             }
         });
-
-        jCBTimeSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
-
-        jCBTimeSelect1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
 
         jCBTimeSelect2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
 
@@ -139,6 +137,14 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
         });
 
         jLDash1.setText("-");
+
+        JSpinner.DateEditor de = new JSpinner.DateEditor(jSpinner1, "HH:mm");
+        jSpinner1.setEditor(de);
+        jSpinner1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jSpinner2.setModel(new SpinnerDateModel());
+        jSpinner2.setEditor(new JSpinner.DateEditor(jSpinner2, "HH:mm"));
+        jSpinner2.setValue(def);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -156,31 +162,54 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
                                 .addComponent(jlProfessor)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jCBProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jlDays)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jCheckMonday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jlMonday, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlTuesday)
-                                    .addComponent(jCheckTuesday))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlWednesDay)
-                                    .addComponent(jCheckWednesday))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlThursday)
-                                    .addComponent(jCheckThursday))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlFriday)
-                                    .addComponent(jCheckFriday))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLBreak)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jlTime)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jFTFBreakTime, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jCBTimeSelect2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLDash1)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jFTFBreakTime2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jCBTimeSelect3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jlDays)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jCheckMonday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jlMonday, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jlTuesday)
+                                            .addComponent(jCheckTuesday))
+                                        .addGap(26, 26, 26)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jlWednesDay)
+                                            .addComponent(jCheckWednesday))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jlThursday)
+                                            .addComponent(jCheckThursday))
+                                        .addGap(18, 18, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jlFriday)
+                                            .addComponent(jCheckFriday))))
+                                .addGap(16, 16, 16)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jbSubmit)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jCheckSaturday)
                                             .addComponent(jlSaturday))
@@ -189,38 +218,8 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addGap(10, 10, 10)
                                                 .addComponent(jCheckSunday))
-                                            .addComponent(jlSunday, javax.swing.GroupLayout.Alignment.TRAILING)))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(8, 8, 8)
-                                        .addComponent(jbSubmit))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jlTime)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jFTFTimeMorning, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCBTimeSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jFTFBreakTime, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCBTimeSelect2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLDash1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLDash))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jFTFTimeAfternoon, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCBTimeSelect1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jFTFBreakTime2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCBTimeSelect3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jLBreak))))
-                .addGap(0, 30, Short.MAX_VALUE))
+                                            .addComponent(jlSunday, javax.swing.GroupLayout.Alignment.TRAILING))))))))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,11 +253,8 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
                         .addGap(33, 33, 33)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jlTime)
-                            .addComponent(jFTFTimeMorning, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLDash)
-                            .addComponent(jFTFTimeAfternoon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCBTimeSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCBTimeSelect1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLBreak)
@@ -292,10 +288,6 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
     private void jCBProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBProfessorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCBProfessorActionPerformed
-
-    private void jFTFTimeMorningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFTFTimeMorningActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFTFTimeMorningActionPerformed
 
     private void jbSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSubmitActionPerformed
         // TODO add your handling code here:
@@ -359,6 +351,9 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
             jCBProfessor.addItem(rs.getString(1));
         }
         
+        
+
+        
         //jCBProfessor.setModel(new DefaultComboBoxModel(professorName));
 
         
@@ -368,8 +363,6 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JComboBox<String> jCBProfessor;
-    private javax.swing.JComboBox<String> jCBTimeSelect;
-    private javax.swing.JComboBox<String> jCBTimeSelect1;
     private javax.swing.JComboBox<String> jCBTimeSelect2;
     private javax.swing.JComboBox<String> jCBTimeSelect3;
     private javax.swing.JCheckBox jCheckFriday;
@@ -381,12 +374,11 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckWednesday;
     private javax.swing.JFormattedTextField jFTFBreakTime;
     private javax.swing.JFormattedTextField jFTFBreakTime2;
-    private javax.swing.JFormattedTextField jFTFTimeAfternoon;
-    private javax.swing.JFormattedTextField jFTFTimeMorning;
     private javax.swing.JLabel jLBreak;
-    private javax.swing.JLabel jLDash;
     private javax.swing.JLabel jLDash1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JSpinner jSpinner2;
     private javax.swing.JButton jbSubmit;
     private javax.swing.JLabel jlDays;
     private javax.swing.JLabel jlFriday;
