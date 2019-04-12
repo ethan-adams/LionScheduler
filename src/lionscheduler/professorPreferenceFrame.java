@@ -308,92 +308,97 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
 
     private void jbSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSubmitActionPerformed
 
-        int sqlM = 0;
-        int sqlT = 0;
-        int sqlW = 0;
-        int sqlTh = 0;
-        int sqlF = 0;
-        int sqlS = 0;
-        int sqlSun = 0;
+//Setting string filled with 1s and 0s for DB
+        String sqlM = "0";
+        String sqlT = "0";
+        String sqlW = "0";
+        String sqlTh= "0";
+        String sqlF= "0";
+        String sqlS = "0";
+        String sqlSun = "0";
         if(jCheckMonday.isSelected() == true)
         {
-            sqlM = 1;
+            sqlM = "1";
             if(jCheckMonday.isSelected() == false)
             {
-                sqlM = 0;
+                sqlM = "0";
             }
         }
         if(jCheckTuesday.isSelected() == true)
         {
-            sqlT = 1;
+            sqlT = "1";
             if(jCheckTuesday.isSelected() == false)
             {
-                sqlT = 0;
+                sqlT = "0";
             }
         }
         if(jCheckWednesday.isSelected() == true)
         {
-            sqlW = 1;
+            sqlW = "1";
             if(jCheckWednesday.isSelected() == false)
             {
-                sqlW = 0;
+                sqlW = "0";
             }
         }
         if(jCheckThursday.isSelected() == true)
         {
-            sqlTh = 1;
+            sqlTh = "1";
             if(jCheckThursday.isSelected() == false)
             {
-                sqlTh = 0;
+                sqlTh = "0";
             }
         }
         if(jCheckFriday.isSelected() == true)
         {
-            sqlF = 1;
+            sqlF = "1";
             if(jCheckFriday.isSelected() == false)
             {
-                sqlF = 0;
+                sqlF = "0";
             }
         }
         if(jCheckSaturday.isSelected() == true)
         {
-            sqlS = 1;
+            sqlS = "1";
             if(jCheckSaturday.isSelected() == false)
             {
-                sqlS = 0;
+                sqlS = "0";
             }
         }
         if(jCheckSunday.isSelected() == true)
         {
-            sqlSun = 1;
+            sqlSun = "1";
             if(jCheckSunday.isSelected() == false)
             {
-                sqlSun = 0;
+                sqlSun = "0";
             }
         }
-        
+        String sqlDays = sqlM + sqlT +  sqlW +  sqlTh + sqlF +  sqlS + sqlSun;
         try {  
             Class.forName("com.mysql.jdbc.Driver");
             Connection con=DriverManager.getConnection("jdbc:mysql://istdata.bk.psu.edu:3306/bmb5858","bmb5858","berks!bmb5858");
             
-//            String sqlStatement = "UPDATE Preferences SET Day = (?,?,?,?,?,?,?)"; 
-//            PreparedStatement pst = con.prepareStatement(sqlStatement);
-//            pst.setInt(1, sqlM);
-//            pst.setInt(2, sqlT);
-//            pst.setInt(3, sqlW);
-//            pst.setInt(4, sqlTh);
-//            pst.setInt(5, sqlF);
-//            pst.setInt(6, sqlS);
-//            pst.setInt(7, sqlSun);
+            String test = (String) jCBProfessor.getSelectedItem();
+            String sqlStatement = "UPDATE Preferences, Faculty SET Day = ? WHERE  idPreferences ="
+                    + " (SELECT idFaculty FROM Faculty WHERE Name = ?)";
+            PreparedStatement pst = con.prepareStatement(sqlStatement);
+            pst.setString(1, sqlDays);
+            pst.setString(2, test);
+            pst.executeUpdate();
+
+        String checkSt = "SELECT Day FROM Preferences";
+        Statement st1 =con.createStatement();
+        ResultSet rs1 = st1.executeQuery(checkSt);
+            
+        while(rs1.next())
+        {
+            System.out.println(rs1.getInt("Day"));         
+        }
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(professorPreferenceFrame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(professorPreferenceFrame.class.getName()).log(Level.SEVERE, null, ex);
         }    
-            //System.out.println(sqlM + " " + sqlT + " " + sqlW + " " + sqlTh + " " + sqlF + " " + sqlS + " " + sqlSun);
-
-        
     }//GEN-LAST:event_jbSubmitActionPerformed
 
     /**
@@ -446,14 +451,6 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
             jCBProfessor.addItem(rs.getString(1));
         }
         
-        String checkSt = "SELECT Day From Preferences";
-        Statement st1 = con.createStatement();
-        ResultSet rs1 = st1.executeQuery(checkSt);
-            
-            while(rs1.next())
-            {
-                System.out.println(rs1.getString(1));         
-            }
         
         
 
