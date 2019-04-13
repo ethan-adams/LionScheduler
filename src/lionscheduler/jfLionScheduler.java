@@ -13,9 +13,11 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,28 +34,43 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import javax.swing.WindowConstants;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
  * @author sciss
  */
 public class jfLionScheduler extends javax.swing.JFrame {
+// *** NOTE: In order for JTable to work, rs2xml.jar file must be in Libraries - EJB ***
     
+    static Connection con;
     Date dStartTime;
     Date dEndTime;
     
     /**
      * Creates new form jfLionScheduler
      */
-    public jfLionScheduler() {
+    public jfLionScheduler() throws SQLException {
         initComponents();
+        
+        // MySQL database connection
+        try {  
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        con=DriverManager.getConnection(  
+        "jdbc:mysql://istdata.bk.psu.edu:3306/bmb5858","bmb5858","berks!bmb5858");
+        System.out.println("connection established.");
+        
+        // loadListView method
         try {
             loadListView();
         } catch (SQLException ex) {
             Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }
+    } // Constructor
     
     private JEditorPane createEditorPane(String inRefreshURL) {
         JEditorPane editorPane = new JEditorPane();
@@ -77,17 +94,16 @@ public class jfLionScheduler extends javax.swing.JFrame {
 
         return editorPane;
     }
-    
-
+       
     private void loadListView() throws SQLException {
-        try {  
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Connection con=DriverManager.getConnection(  
-        "jdbc:mysql://istdata.bk.psu.edu:3306/bmb5858","bmb5858","berks!bmb5858");
-        System.out.println("connection established.");
+//        try {  
+//            Class.forName("com.mysql.jdbc.Driver");
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        Connection con=DriverManager.getConnection(  
+//        "jdbc:mysql://istdata.bk.psu.edu:3306/bmb5858","bmb5858","berks!bmb5858");
+//        System.out.println("connection established.");
         
         getCoursesGivenProf(con, "Xue");
         
@@ -95,8 +111,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
         //String getCourses = "SELECT "
         
         con.close();
-    }
-    
+    }  
      private void getCoursesGivenProf(Connection con, String profName) {
          
         StringBuilder returnString = new StringBuilder(); 
@@ -106,18 +121,40 @@ public class jfLionScheduler extends javax.swing.JFrame {
                                     "SELECT idFaculty FROM faculty\n" +
                                     "WHERE Name LIKE '" + inName + "'\n);";
         
-        try {
+        try 
+        {
             PreparedStatement psExe = con.prepareStatement(sProf);
             ResultSet rs = psExe.executeQuery();
-            while (rs.next()) {
-                returnString.append(rs.getInt("Course_idCourse") + "\t" + rs.getInt("Room_idRoom") + "/n");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            
+            // Populates JTable - EJB
+            filterTable.setModel(DbUtils.resultSetToTableModel(rs));
+            
+//            while (rs.next()) 
+//            {
+//                
+//                returnString.append(rs.getInt("Course_idCourse") + "\t" 
+//                        + rs.getInt("Room_idRoom") + "\t"
+//                        + rs.getTime("BeginTime") + "\t"
+//                        + rs.getTime("EndTime") + "\t"
+//                        + rs.getInt("Mon") + "\t"
+//                        + rs.getInt("Tue") + "\t"
+//                        + rs.getInt("Wed") + "\t"
+//                        + rs.getInt("Thu") + "\t"
+//                        + rs.getInt("Fri") + "\t"
+//                        + rs.getInt("Sat") + "\t"
+//                        + rs.getInt("Sun") + "\t"
+//                        + rs.getInt("TotalEnrl"));
+//            } // while
+            
+        } // try 
         
-         System.out.println(returnString.toString());
-         jtListView.setText(returnString.toString());
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
+        } // catch
+             
+//         System.out.println(returnString.toString());
+//         jtListView.setText(returnString.toString());
     }
     
     /**
@@ -137,8 +174,8 @@ public class jfLionScheduler extends javax.swing.JFrame {
         jbGenerateReport = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jpCalendarPanel = new javax.swing.JPanel();
-        jsListContainer = new javax.swing.JScrollPane();
-        jtListView = new javax.swing.JTextPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        filterTable = new javax.swing.JTable();
         jpFilterPanel = new javax.swing.JPanel();
         jlFilterByLabel = new javax.swing.JLabel();
         jlSubjectLabel = new javax.swing.JLabel();
@@ -179,6 +216,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
 
         } // catch
         jsEndTime = new javax.swing.JSpinner();
+        jbFilterButton = new javax.swing.JButton();
         jmMenu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -218,17 +256,28 @@ public class jfLionScheduler extends javax.swing.JFrame {
         jbGenerateReport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jtbTools.add(jbGenerateReport);
 
-        jsListContainer.setViewportView(jtListView);
+        filterTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(filterTable);
 
         javax.swing.GroupLayout jpCalendarPanelLayout = new javax.swing.GroupLayout(jpCalendarPanel);
         jpCalendarPanel.setLayout(jpCalendarPanelLayout);
         jpCalendarPanelLayout.setHorizontalGroup(
             jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jsListContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 948, Short.MAX_VALUE)
         );
         jpCalendarPanelLayout.setVerticalGroup(
             jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jsListContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
         );
 
         jScrollPane2.setViewportView(jpCalendarPanel);
@@ -276,6 +325,14 @@ public class jfLionScheduler extends javax.swing.JFrame {
         jsEndTime.setEditor(new JSpinner.DateEditor(jsEndTime, "hh:mm"));
         jsEndTime.setValue(dEndTime);
 
+        jbFilterButton.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jbFilterButton.setText("Filter Data");
+        jbFilterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbFilterButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpFilterPanelLayout = new javax.swing.GroupLayout(jpFilterPanel);
         jpFilterPanel.setLayout(jpFilterPanelLayout);
         jpFilterPanelLayout.setHorizontalGroup(
@@ -315,7 +372,11 @@ public class jfLionScheduler extends javax.swing.JFrame {
                 .addGroup(jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlEndTimeLabel)
                     .addComponent(jsEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addGap(0, 16, Short.MAX_VALUE))
+            .addGroup(jpFilterPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jbFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpFilterPanelLayout.setVerticalGroup(
             jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,7 +418,9 @@ public class jfLionScheduler extends javax.swing.JFrame {
                 .addGroup(jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jsEndTime, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                     .addComponent(jsStartTime))
-                .addGap(107, 107, 107))
+                .addGap(26, 26, 26)
+                .addComponent(jbFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jMenu1.setText("File");
@@ -374,9 +437,9 @@ public class jfLionScheduler extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jpFilterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jpFilterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2)
                 .addGap(9, 9, 9))
             .addComponent(jtbTools, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -404,10 +467,14 @@ public class jfLionScheduler extends javax.swing.JFrame {
         addCourse.setVisible(true);
     }//GEN-LAST:event_jbCreateCourseActionPerformed
 
+    private void jbFilterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFilterButtonActionPerformed
+        // TODO: Display data based upon filter selections
+    }//GEN-LAST:event_jbFilterButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws SQLException {
 		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -429,18 +496,26 @@ public class jfLionScheduler extends javax.swing.JFrame {
 		
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new jfLionScheduler().setVisible(true);
+                try {
+                    new jfLionScheduler().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
+        
     }
 	
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable filterTable;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JButton jbCreateCourse;
+    private javax.swing.JButton jbFilterButton;
     private javax.swing.JButton jbGenerateReport;
     private javax.swing.JButton jbPreferences;
     private javax.swing.JComboBox<String> jcbCourse;
@@ -464,9 +539,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
     private javax.swing.JPanel jpCalendarPanel;
     private javax.swing.JPanel jpFilterPanel;
     private javax.swing.JSpinner jsEndTime;
-    private javax.swing.JScrollPane jsListContainer;
     private javax.swing.JSpinner jsStartTime;
-    private javax.swing.JTextPane jtListView;
     private javax.swing.JToolBar jtbTools;
     // End of variables declaration//GEN-END:variables
 }
