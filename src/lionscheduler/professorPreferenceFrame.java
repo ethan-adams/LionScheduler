@@ -6,28 +6,30 @@
 package lionscheduler;
 
 import java.sql.*;
+import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerDateModel;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.SpinnerModel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
 
 /**
  *
  * @author mch5367
+ * 
+ * Last edited 4/15/19
  */
 public class professorPreferenceFrame extends javax.swing.JFrame {
     /**
      * Creates new form professorPreferenceFrame
      */
-    Date def;
-    Date def1;
-    Date def2;
-    Date def3;
+    
+    // Bad practice for global varriables, but for now it works.
+    Date dTStart;
+    Date dTEnd;
+    Date dTBreakStart;
+    Date dTBreakEnd;
             
     public professorPreferenceFrame() {
         initComponents();
@@ -65,44 +67,48 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
         jCheckThursday = new javax.swing.JCheckBox();
         jlTime = new javax.swing.JLabel();
         jLBreak = new javax.swing.JLabel();
-        SimpleDateFormat fd = new SimpleDateFormat("hh:mm");
-        try
-        {
-            def = fd.parse("00:00");
-        }
-        catch(ParseException ex)
-        {
-        }
-        jSTime1 = new javax.swing.JSpinner();
-        SimpleDateFormat fd1 = new SimpleDateFormat("HH:mm");
-        try
-        {
-            def1 = fd1.parse("00:00");
-        }
-        catch(ParseException ex)
-        {
-        }
-        jSTime2 = new javax.swing.JSpinner();
-        SimpleDateFormat fd2 = new SimpleDateFormat("HH:mm");
-        try
-        {
-            def2 = fd2.parse("00:00");
-        }
-        catch(ParseException ex)
-        {
-        }
-        jSTime3 = new javax.swing.JSpinner();
-        SimpleDateFormat fd3 = new SimpleDateFormat("HH:mm");
-        try
-        {
-            def3 = fd3.parse("00:00");
-        }
-        catch(ParseException ex)
-        {
-        }
-        jSTime4 = new javax.swing.JSpinner();
-        jLDash = new javax.swing.JLabel();
         jLDash1 = new javax.swing.JLabel();
+        SimpleDateFormat dfStart = new SimpleDateFormat("HH:mm");
+        try
+        {
+            dTStart = dfStart.parse("00:00");
+        }
+        catch (ParseException ex)
+        {
+
+        }
+        SpinnerDateModel dm = new SpinnerDateModel();
+        jSTimeStart = new javax.swing.JSpinner();
+        SimpleDateFormat dfStartEnd = new SimpleDateFormat("HH:mm");
+        try
+        {
+            dTEnd = dfStartEnd.parse("00:00");
+        }
+        catch (ParseException ex)
+        {
+
+        }
+        jSTimeEnd = new javax.swing.JSpinner();
+        SimpleDateFormat dfBreakStart = new SimpleDateFormat("HH:mm");
+        try
+        {
+            dTBreakStart = dfBreakStart.parse("00:00");
+        }
+        catch (ParseException ex)
+        {
+
+        }
+        jSBreakStart = new javax.swing.JSpinner();
+        SimpleDateFormat dfBreakEnd = new SimpleDateFormat("HH:mm");
+        try
+        {
+            dTBreakEnd = dfBreakEnd.parse("00:00");
+        }
+        catch (ParseException ex)
+        {
+
+        }
+        jSBreakEnd = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -140,105 +146,108 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
 
         jlDays.setText("Days:");
 
-        jCheckMonday.setToolTipText("");
         jCheckMonday.setAutoscrolls(true);
-        jCheckMonday.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jlTime.setText("Time:");
 
         jLBreak.setText("Break:");
 
-        jSTime1.setModel(new SpinnerDateModel());
-        jSTime1.setEditor(new JSpinner.DateEditor(jSTime1, "hh:mm"));
-        jSTime1.setValue(def);
-
-        jSTime2.setModel(new SpinnerDateModel());
-        jSTime2.setEditor(new JSpinner.DateEditor(jSTime2, "HH:mm"));
-        jSTime2.setValue(def);
-
-        jSTime3.setModel(new SpinnerDateModel());
-        jSTime3.setEditor(new JSpinner.DateEditor(jSTime3, "HH:mm"));
-        jSTime3.setValue(def);
-
-        jSTime4.setModel(new SpinnerDateModel());
-        jSTime4.setEditor(new JSpinner.DateEditor(jSTime4, "HH:mm"));
-        jSTime4.setValue(def);
-
-        jLDash.setText("-");
-
         jLDash1.setText("-");
+
+        jSTimeStart.setModel(new SpinnerDateModel());
+        jSTimeStart.setEditor(new JSpinner.DateEditor(jSTimeStart, "hh:mm aa"));
+        jSTimeStart.setValue(dTStart);
+
+        jSTimeEnd.setModel(new SpinnerDateModel());
+        jSTimeEnd.setEditor(new JSpinner.DateEditor(jSTimeEnd, "hh:mm aa"));
+        jSTimeEnd.setValue(dTEnd);
+
+        jSBreakStart.setModel(new SpinnerDateModel());
+        jSBreakStart.setEditor(new JSpinner.DateEditor(jSBreakStart, "hh:mm aa"));
+        jSBreakStart.setValue(dTBreakStart);
+        jSBreakStart.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jSBreakEnd.setModel(new SpinnerDateModel());
+        jSBreakEnd.setEditor(new JSpinner.DateEditor(jSBreakEnd, "hh:mm aa"));
+        jSBreakEnd.setValue(dTBreakEnd);
+        jSBreakEnd.setModel(new javax.swing.SpinnerDateModel());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jbSubmit)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jlDays)
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jCheckMonday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jlMonday, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlTuesday)
-                                    .addComponent(jCheckTuesday))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlWednesDay)
-                                    .addComponent(jCheckWednesday))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jlThursday)
-                                    .addComponent(jCheckThursday))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jCheckFriday)
-                                    .addComponent(jlFriday))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jCheckSaturday)
-                                    .addComponent(jlSaturday))))
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlSunday)
-                            .addComponent(jCheckSunday))
-                        .addContainerGap(25, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jlProfessorPreferences))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jlProfessor)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCBProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jlTime)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jSTime1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(5, 5, 5)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jlDays)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(jCheckMonday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(jlMonday, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jlTuesday)
+                                                    .addComponent(jCheckTuesday))
+                                                .addGap(26, 26, 26)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jlWednesDay)
+                                                    .addComponent(jCheckWednesday)))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jlTime)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jSTimeStart, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(70, 70, 70)))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jlThursday)
+                                                    .addComponent(jCheckThursday))
+                                                .addGap(18, 18, Short.MAX_VALUE)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jlFriday)
+                                                    .addComponent(jCheckFriday)))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(111, 111, 111)
+                                                .addComponent(jLDash1)
+                                                .addGap(0, 0, Short.MAX_VALUE))))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLBreak)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jSTime3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
+                                        .addComponent(jSBreakStart, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLDash)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jSTime2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLDash1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jSTime4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jlProfessorPreferences)
+                                        .addGap(10, 10, 10)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jCheckSaturday)
+                                            .addComponent(jlSaturday))
+                                        .addGap(88, 88, 88)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addComponent(jCheckSunday))
+                                            .addComponent(jlSunday, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jSBreakEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jbSubmit))
+                                    .addComponent(jSTimeEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addComponent(jlProfessor)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jCBProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -273,19 +282,18 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
                         .addGap(33, 33, 33)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jlTime)
-                            .addComponent(jSTime1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSTime2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLDash))
-                        .addGap(36, 36, 36)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jSTime3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLBreak)
-                            .addComponent(jLDash1)
-                            .addComponent(jSTime4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jSTimeStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSTimeEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLDash1)))
                     .addComponent(jCheckThursday))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLBreak)
+                    .addComponent(jSBreakEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSBreakStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
                 .addComponent(jbSubmit)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGap(43, 43, 43))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -373,26 +381,60 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
             }
         }
         String sqlDays = sqlM + sqlT +  sqlW +  sqlTh + sqlF +  sqlS + sqlSun;
+        
         try {  
             Class.forName("com.mysql.jdbc.Driver");
             Connection con=DriverManager.getConnection("jdbc:mysql://istdata.bk.psu.edu:3306/bmb5858","bmb5858","berks!bmb5858");
-            
-            String test = (String) jCBProfessor.getSelectedItem();
-            String sqlStatement = "UPDATE Preferences, Faculty SET Day = ? WHERE  idPreferences ="
+
+            // Section will update just the day in preferences table, will insert a string of 7 numbers ex"0100110"
+            //1 =  selected day, 0 = not selected day
+            String getProfName = (String) jCBProfessor.getSelectedItem();
+            String sqlStatement = "UPDATE Preferences, Faculty SET Day = ? WHERE idPreferences ="
                     + " (SELECT idFaculty FROM Faculty WHERE Name = ?)";
             PreparedStatement pst = con.prepareStatement(sqlStatement);
             pst.setString(1, sqlDays);
-            pst.setString(2, test);
+            pst.setString(2, getProfName);
             pst.executeUpdate();
-
-        String checkSt = "SELECT Day FROM Preferences";
-        Statement st1 =con.createStatement();
-        ResultSet rs1 = st1.executeQuery(checkSt);
             
-        while(rs1.next())
+            //Updating all Start, End and all break times, need to cast them as java.sql.time 
+            dTStart = (java.util.Date) jSTimeStart.getValue();
+            java.sql.Time sqlTimeStart = new java.sql.Time(dTStart.getTime());
+            
+            dTEnd = (java.util.Date) jSTimeEnd.getValue();
+            java.sql.Time sqlTimeEnd = new java.sql.Time(dTEnd.getTime());
+            
+            dTBreakStart = (java.util.Date) jSBreakStart.getValue();
+            java.sql.Time sqlBreakStart = new java.sql.Time(dTBreakStart.getTime());
+            
+            dTBreakEnd = (java.util.Date) jSBreakEnd.getValue();
+            java.sql.Time sqlBreakEnd = new java.sql.Time(dTBreakEnd.getTime());
+            
+            
+            String sqlUpdateTime = "UPDATE Preferences "
+                    + "SET StartTime = ?, EndTime = ?, BreakStart = ?, BreakEnd = ? "
+                    + "WHERE idPreferences ="
+                    + " (SELECT idFaculty FROM Faculty WHERE Name = ?)";
+            
+            PreparedStatement pstTime = con.prepareStatement(sqlUpdateTime);
+            pstTime.setTime(1, sqlTimeStart);
+            pstTime.setTime(2, sqlTimeEnd);
+            pstTime.setTime(3, sqlBreakStart);
+            pstTime.setTime(4, sqlBreakEnd);
+            pstTime.setString(5, getProfName);
+            pstTime.executeUpdate();
+            
+            //Just used to check that data is being modified, will keep just in case
+/*
+        String checkSt = "SELECT Day, StartTime, EndTime, BreakStart, BreakEnd FROM Preferences WHERE idPreferences = 1 OR idPreferences = 3 OR idPreferences = 6";
+        Statement st1 = con.createStatement();
+        ResultSet rs2 = st1.executeQuery(checkSt);
+        
+        while(rs2.next())
         {
-            System.out.println(rs1.getInt("Day"));         
+            System.out.println(rs2.getString("Day") + " " + rs2.getTime("StartTime") +
+                    " " + rs2.getTime("EndTime") + " " + rs2.getTime("BreakStart") + " " + rs2.getTime("BreakEnd"));
         }
+*/
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(professorPreferenceFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -401,9 +443,6 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
         }    
     }//GEN-LAST:event_jbSubmitActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) throws ClassNotFoundException, SQLException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -438,7 +477,7 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
             }
         });
         
-
+        // Populating the combobox with all teachers from database
         Class.forName("com.mysql.jdbc.Driver");  
         Connection con=DriverManager.getConnection("jdbc:mysql://istdata.bk.psu.edu:3306/bmb5858","bmb5858","berks!bmb5858");
         
@@ -450,12 +489,6 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
         {
             jCBProfessor.addItem(rs.getString(1));
         }
-        
-        
-        
-
-        
-        //jCBProfessor.setModel(new DefaultComboBoxModel(professorName));
 
         
         
@@ -472,13 +505,12 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckTuesday;
     private javax.swing.JCheckBox jCheckWednesday;
     private javax.swing.JLabel jLBreak;
-    private javax.swing.JLabel jLDash;
     private javax.swing.JLabel jLDash1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSpinner jSTime1;
-    private javax.swing.JSpinner jSTime2;
-    private javax.swing.JSpinner jSTime3;
-    private javax.swing.JSpinner jSTime4;
+    private javax.swing.JSpinner jSBreakEnd;
+    private javax.swing.JSpinner jSBreakStart;
+    private javax.swing.JSpinner jSTimeEnd;
+    public static javax.swing.JSpinner jSTimeStart;
     private javax.swing.JButton jbSubmit;
     private javax.swing.JLabel jlDays;
     private javax.swing.JLabel jlFriday;
