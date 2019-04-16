@@ -126,7 +126,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
                 + "WHERE Subject = ?"
                 + "GROUP BY Num";
         PreparedStatement psCourseQuery = con.prepareStatement(strCourseQuery);
-        psCourseQuery.setString(1,(String) jcbSubject.getSelectedItem());
+        psCourseQuery.setString(1,(String) jcbSubject.getSelectedItem()); // ? in query = Subject from jcbSubjectComboBox
         ResultSet rs = psCourseQuery.executeQuery();
       
         while (rs.next())
@@ -381,18 +381,6 @@ public class jfLionScheduler extends javax.swing.JFrame {
             }
         });
 
-        jcbCourse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbCourseActionPerformed(evt);
-            }
-        });
-
-        jcbProfessor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbProfessorActionPerformed(evt);
-            }
-        });
-
         jsStartTime.setModel(new SpinnerDateModel());
         jsStartTime.setEditor(new JSpinner.DateEditor(jsStartTime, "hh:mm"));
         jsStartTime.setValue(dStartTime);
@@ -548,30 +536,17 @@ public class jfLionScheduler extends javax.swing.JFrame {
     }//GEN-LAST:event_jbFilterButtonActionPerformed
 
     private void jcbSubjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSubjectActionPerformed
+        jcbCourse.removeAllItems();
         try 
         {
-            fillSubjectCombo();
-        } 
-        catch (SQLException ex) 
-        {
-            Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jcbSubjectActionPerformed
-
-    private void jcbCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCourseActionPerformed
-        try
-        {
             fillCourseCombo();
-        } 
+        } // try
         catch (SQLException ex) 
         {
             Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jcbCourseActionPerformed
-
-    private void jcbProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbProfessorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcbProfessorActionPerformed
+        } // catch
+       
+    }//GEN-LAST:event_jcbSubjectActionPerformed
 
     /**
      * @param args the command line arguments
