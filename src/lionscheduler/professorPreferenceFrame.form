@@ -98,11 +98,16 @@
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jlTime" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jSTimeStart" min="-2" pref="96" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jLDash1" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jlTime" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="jSTimeStart" min="-2" pref="96" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="jLDash1" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="jLDash2" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jSBreakEnd" min="-2" pref="96" max="-2" attributes="0"/>
@@ -184,6 +189,7 @@
                       <Component id="jLBreak" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jSBreakEnd" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jSBreakStart" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLDash2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                   <Component id="jbSubmit" min="-2" max="-2" attributes="0"/>
@@ -335,6 +341,11 @@
             <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="SimpleDateFormat dfBreakEnd = new SimpleDateFormat(&quot;HH:mm&quot;);&#xa;try&#xa;{&#xa;    dTBreakEnd = dfBreakEnd.parse(&quot;00:00&quot;);&#xa;}&#xa;catch (ParseException ex)&#xa;{&#xa;&#xa;}"/>
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jSBreakEnd.setModel(new SpinnerDateModel());&#xa;jSBreakEnd.setEditor(new JSpinner.DateEditor(jSBreakEnd, &quot;hh:mm aa&quot;));&#xa;jSBreakEnd.setValue(dTBreakEnd);"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLDash2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="-"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

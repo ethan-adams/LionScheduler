@@ -109,6 +109,7 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
 
         }
         jSBreakEnd = new javax.swing.JSpinner();
+        jLDash2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -172,6 +173,8 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
         jSBreakEnd.setValue(dTBreakEnd);
         jSBreakEnd.setModel(new javax.swing.SpinnerDateModel());
 
+        jLDash2.setText("-");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -224,11 +227,14 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
                                             .addComponent(jbSubmit))
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jlTime)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jSTimeStart, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLDash1)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jlTime)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jSTimeStart, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jLDash1))
+                                            .addComponent(jLDash2))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jSBreakEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -291,7 +297,8 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLBreak)
                     .addComponent(jSBreakEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSBreakStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSBreakStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLDash2))
                 .addGap(55, 55, 55)
                 .addComponent(jbSubmit)
                 .addGap(35, 35, 35))
@@ -507,6 +514,7 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckWednesday;
     private javax.swing.JLabel jLBreak;
     private javax.swing.JLabel jLDash1;
+    private javax.swing.JLabel jLDash2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSpinner jSBreakEnd;
     private javax.swing.JSpinner jSBreakStart;
