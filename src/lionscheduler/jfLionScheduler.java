@@ -5,6 +5,29 @@
  */
 package lionscheduler;
 
+import com.davidmoodie.SwingCalendar.Calendar;
+import com.davidmoodie.SwingCalendar.CalendarEvent;
+import com.davidmoodie.SwingCalendar.WeekCalendar;
+import java.awt.BorderLayout;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+
 /**
  *
  * @author sciss
@@ -16,8 +39,79 @@ public class jfLionScheduler extends javax.swing.JFrame {
      */
     public jfLionScheduler() {
         initComponents();
+        try {
+            loadListView();
+        } catch (SQLException ex) {
+            Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
+    
+    private JEditorPane createEditorPane(String inRefreshURL) {
+        JEditorPane editorPane = new JEditorPane();
+        editorPane.setEditable(false);
+        java.net.URL refreshURL = null;
+        
+        try {
+            refreshURL = new URL(inRefreshURL);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (refreshURL != null) {
+            try {
+                editorPane.setPage(refreshURL);
+            } catch (IOException e) {
+                System.err.println("Attempted to read a bad URL: " + refreshURL);
+            }
+        } else {
+            System.err.println("Couldn't find the URL: " + refreshURL);
+        }
 
+        return editorPane;
+    }
+    
+
+    private void loadListView() throws SQLException {
+        try {  
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Connection con=DriverManager.getConnection(  
+        "jdbc:mysql://istdata.bk.psu.edu:3306/bmb5858","bmb5858","berks!bmb5858");
+        System.out.println("connection established.");
+        
+        getCoursesGivenProf(con, "Xue");
+        
+        //call listview
+        //String getCourses = "SELECT "
+        
+        con.close();
+    }
+    
+     private void getCoursesGivenProf(Connection con, String profName) {
+         
+        StringBuilder returnString = new StringBuilder(); 
+        String inName = "%" + profName + "%";
+        String sProf =  "SELECT Course_idCourse, Room_idRoom, BeginTime, EndTime, Mon, Tue, Wed, Thu, Fri, Sat, Sun, TotalEnrl FROM schedule \n" +
+                                    "WHERE Faculty_idFaculty = (\n" +
+                                    "SELECT idFaculty FROM faculty\n" +
+                                    "WHERE Name LIKE '" + inName + "'\n);";
+        
+        try {
+            PreparedStatement psExe = con.prepareStatement(sProf);
+            ResultSet rs = psExe.executeQuery();
+            while (rs.next()) {
+                returnString.append(rs.getInt("Course_idCourse") + "\t" + rs.getInt("Room_idRoom") + "/n");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+         System.out.println(returnString.toString());
+         jtListView.setText(returnString.toString());
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,52 +121,80 @@ public class jfLionScheduler extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jToolBar1 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jtbTools = new javax.swing.JToolBar();
+        jbCreateCourse = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        jbPreferences = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        jbGenerateReport = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        jtLeftTree = new javax.swing.JTree();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jpCalendarPanel = new javax.swing.JPanel();
+        jsListContainer = new javax.swing.JScrollPane();
+        jtListView = new javax.swing.JTextPane();
+        jmMenu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+        jtbTools.setRollover(true);
+
+        jbCreateCourse.setText("Create New Course");
+        jbCreateCourse.setFocusable(false);
+        jbCreateCourse.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbCreateCourse.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jbCreateCourse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCreateCourseActionPerformed(evt);
+            }
+        });
+        jtbTools.add(jbCreateCourse);
+        jtbTools.add(jSeparator1);
+
+        jbPreferences.setText("Preferences");
+        jbPreferences.setFocusable(false);
+        jbPreferences.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbPreferences.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jbPreferences.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbPreferencesActionPerformed(evt);
+            }
+        });
+        jtbTools.add(jbPreferences);
+        jtbTools.add(jSeparator2);
+
+        jbGenerateReport.setText("Generate Report");
+        jbGenerateReport.setFocusable(false);
+        jbGenerateReport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbGenerateReport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jtbTools.add(jbGenerateReport);
+
+        jScrollPane1.setViewportView(jtLeftTree);
+
+        jsListContainer.setViewportView(jtListView);
+
+        javax.swing.GroupLayout jpCalendarPanelLayout = new javax.swing.GroupLayout(jpCalendarPanel);
+        jpCalendarPanel.setLayout(jpCalendarPanelLayout);
+        jpCalendarPanelLayout.setHorizontalGroup(
+            jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jsListContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        jpCalendarPanelLayout.setVerticalGroup(
+            jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jsListContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
         );
 
-        jToolBar1.setRollover(true);
-
-        jButton1.setText("Create New Course");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton1);
-
-        jButton2.setText("Generate Report");
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton2);
-
-        jScrollPane1.setViewportView(jTree1);
+        jScrollPane2.setViewportView(jpCalendarPanel);
 
         jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        jmMenu.add(jMenu1);
 
         jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        jmMenu.add(jMenu2);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(jmMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,34 +203,40 @@ public class jfLionScheduler extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9))
+            .addComponent(jtbTools, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtbTools, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPreferencesActionPerformed
+        professorPreferenceFrame prefs = new professorPreferenceFrame();
+        prefs.setVisible(true);
+    }//GEN-LAST:event_jbPreferencesActionPerformed
+
+    private void jbCreateCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCreateCourseActionPerformed
+        addCourseScreen addCourse = new addCourseScreen();
+        addCourse.setVisible(true);
+    }//GEN-LAST:event_jbCreateCourseActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -125,25 +253,30 @@ public class jfLionScheduler extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(jfLionScheduler.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
+		//</editor-fold>
+		
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new jfLionScheduler().setVisible(true);
             }
         });
     }
-
+	
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JTree jTree1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
+    private javax.swing.JButton jbCreateCourse;
+    private javax.swing.JButton jbGenerateReport;
+    private javax.swing.JButton jbPreferences;
+    private javax.swing.JMenuBar jmMenu;
+    private javax.swing.JPanel jpCalendarPanel;
+    private javax.swing.JScrollPane jsListContainer;
+    private javax.swing.JTree jtLeftTree;
+    private javax.swing.JTextPane jtListView;
+    private javax.swing.JToolBar jtbTools;
     // End of variables declaration//GEN-END:variables
 }
