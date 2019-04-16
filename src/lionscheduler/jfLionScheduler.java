@@ -19,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -63,12 +64,17 @@ public class jfLionScheduler extends javax.swing.JFrame {
         "jdbc:mysql://istdata.bk.psu.edu:3306/bmb5858","bmb5858","berks!bmb5858");
         System.out.println("connection established.");
         
+        // Populates jComboBoxes
+         fillSubjectCombo();
+         fillCourseCombo();
+         fillProfessorCombo();
+        
         // loadListView method
         try {
             loadListView();
         } catch (SQLException ex) {
             Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }  
         
     } // Constructor
     
@@ -93,8 +99,61 @@ public class jfLionScheduler extends javax.swing.JFrame {
         }
 
         return editorPane;
-    }
-       
+        
+    } // createEditorPane
+     
+    
+    private void fillSubjectCombo() throws SQLException
+    {
+        String strSubjectQuery = "SELECT Subject FROM Course "
+                + "GROUP BY Subject";
+        PreparedStatement psSubjectQuery = con.prepareStatement(strSubjectQuery);
+        ResultSet rs = psSubjectQuery.executeQuery();
+  
+        while (rs.next())
+        {
+            jcbSubject.addItem(rs.getString(1));
+            
+        } // while
+        
+        
+    } // fillSubjectCombo
+    
+   
+    private void fillCourseCombo() throws SQLException
+    {
+        String strCourseQuery = "SELECT Num, Description FROM Course "
+                + "WHERE Subject = ?"
+                + "GROUP BY Num";
+        PreparedStatement psCourseQuery = con.prepareStatement(strCourseQuery);
+        psCourseQuery.setString(1,(String) jcbSubject.getSelectedItem());
+        ResultSet rs = psCourseQuery.executeQuery();
+      
+        while (rs.next())
+        {
+            // Gets Num & Description
+            jcbCourse.addItem(rs.getInt(1) + " " + rs.getString(2));
+            
+        } // while
+        
+        
+    } // fillCourseCombo
+    
+    private void fillProfessorCombo() throws SQLException
+    {
+        String strProfessorQuery = "SELECT Name FROM Faculty "
+                + "GROUP BY Name";
+        PreparedStatement psProfessorQuery = con.prepareStatement(strProfessorQuery);
+        ResultSet rs = psProfessorQuery.executeQuery();
+      
+        while (rs.next())
+        {
+            jcbProfessor.addItem(rs.getString(1));
+            
+        } // while
+      
+    } // fillProfessorCombo
+    
     private void loadListView() throws SQLException {
 //        try {  
 //            Class.forName("com.mysql.jdbc.Driver");
@@ -110,8 +169,12 @@ public class jfLionScheduler extends javax.swing.JFrame {
         //call listview
         //String getCourses = "SELECT "
         
-        con.close();
-    }  
+     //   con.close();
+        
+    } // loadListView  
+    
+    
+    
      private void getCoursesGivenProf(Connection con, String profName) {
          
         StringBuilder returnString = new StringBuilder(); 
@@ -155,7 +218,8 @@ public class jfLionScheduler extends javax.swing.JFrame {
              
 //         System.out.println(returnString.toString());
 //         jtListView.setText(returnString.toString());
-    }
+
+    } // getCoursesGivenProf
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -311,11 +375,23 @@ public class jfLionScheduler extends javax.swing.JFrame {
 
         jcbSunday.setText("Sunday");
 
-        jcbSubject.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbSubject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbSubjectActionPerformed(evt);
+            }
+        });
 
-        jcbCourse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbCourse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbCourseActionPerformed(evt);
+            }
+        });
 
-        jcbProfessor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbProfessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbProfessorActionPerformed(evt);
+            }
+        });
 
         jsStartTime.setModel(new SpinnerDateModel());
         jsStartTime.setEditor(new JSpinner.DateEditor(jsStartTime, "hh:mm"));
@@ -471,6 +547,32 @@ public class jfLionScheduler extends javax.swing.JFrame {
         // TODO: Display data based upon filter selections
     }//GEN-LAST:event_jbFilterButtonActionPerformed
 
+    private void jcbSubjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSubjectActionPerformed
+        try 
+        {
+            fillSubjectCombo();
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jcbSubjectActionPerformed
+
+    private void jcbCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCourseActionPerformed
+        try
+        {
+            fillCourseCombo();
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jcbCourseActionPerformed
+
+    private void jcbProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbProfessorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbProfessorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -518,7 +620,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
     private javax.swing.JButton jbFilterButton;
     private javax.swing.JButton jbGenerateReport;
     private javax.swing.JButton jbPreferences;
-    private javax.swing.JComboBox<String> jcbCourse;
+    public javax.swing.JComboBox<String> jcbCourse;
     private javax.swing.JCheckBox jcbFriday;
     private javax.swing.JCheckBox jcbMonday;
     private javax.swing.JComboBox<String> jcbProfessor;
