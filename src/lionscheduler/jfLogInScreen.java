@@ -5,7 +5,10 @@
  */
 package lionscheduler;
 
+import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -110,14 +113,18 @@ public class jfLogInScreen extends javax.swing.JFrame {
         if (jtfUsernameField.getText().equals("user") 
                 && jpfPasswordField.getText().equals("password"))
         {
-            // Add Home page class here
-            jfLionScheduler homePage = new jfLionScheduler();
-            
-            this.setVisible(false); // closes login screen
-            homePage.setVisible(true); // opens main screen  
+            try {
+                // Add Home page class here
+                jfLionScheduler homePage = new jfLionScheduler();
+                this.setVisible(false); // closes login screen
+                homePage.setVisible(true); // opens main screen  
+            } // if
+            catch (SQLException ex) {
+                Logger.getLogger(jfLogInScreen.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
            
-        } // if
+        }
         else 
         {
             jlLogInFailedMessage.setText("Username or Password is incorrect."
