@@ -613,7 +613,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
         frm.add(cal, BorderLayout.CENTER);
         frm.setSize(1000, 900);
         frm.setVisible(true);
-        frm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frm.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
     }//GEN-LAST:event_jbViewCalendarActionPerformed
 

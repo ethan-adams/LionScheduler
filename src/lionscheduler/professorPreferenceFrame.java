@@ -110,7 +110,7 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
         jSBreakEnd = new javax.swing.JSpinner();
         jLDash2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jbSubmit.setText("Submit");
         jbSubmit.addActionListener(new java.awt.event.ActionListener() {
