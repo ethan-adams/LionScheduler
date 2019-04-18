@@ -68,13 +68,16 @@ public class jfLionScheduler extends javax.swing.JFrame {
          fillSubjectCombo();
          fillCourseCombo();
          fillProfessorCombo();
+         
+         
+         displayAllData();
         
         // loadListView method
-        try {
-            loadListView();
-        } catch (SQLException ex) {
-            Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
-        }  
+//        try {
+//            loadListView();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
+//        }  
         
     } // Constructor
     
@@ -128,15 +131,17 @@ public class jfLionScheduler extends javax.swing.JFrame {
         PreparedStatement psCourseQuery = con.prepareStatement(strCourseQuery);
         psCourseQuery.setString(1,(String) jcbSubject.getSelectedItem()); // ? in query = Subject from jcbSubjectComboBox
         ResultSet rs = psCourseQuery.executeQuery();
-      
+        
+        jcbCourse.addItem(" ");
+        
         while (rs.next())
         {
             // Gets Num & Description
             jcbCourse.addItem(rs.getInt(1) + " " + rs.getString(2));
+  
             
         } // while
-        
-        
+      
     } // fillCourseCombo
     
     private void fillProfessorCombo() throws SQLException
@@ -173,6 +178,28 @@ public class jfLionScheduler extends javax.swing.JFrame {
         
     } // loadListView  
     
+    
+    private void displayAllData() throws SQLException
+    {
+        String strDisplayData = "SELECT Subject, Num, Description, Section, Mon, Tue, Wed, Thu, Fri, Sat, Sun, Name "
+                                  + "FROM Schedule "
+                                  + "RIGHT JOIN Course ON Course.idCourse = Schedule.Course_idCourse "
+                                  + "RIGHT JOIN Faculty ON Faculty.idFaculty = Schedule.Faculty_idFaculty";
+                                
+        try
+        {
+            PreparedStatement psDisplayData = con.prepareStatement(strDisplayData);
+            ResultSet rs = psDisplayData.executeQuery();
+            
+            filterTable.setModel(DbUtils.resultSetToTableModel(rs));
+        } // try
+        catch (SQLException ex)
+        {
+            Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
+                    
+        } // catch
+
+    } // displayAllData
     
     
      private void getCoursesGivenProf(Connection con, String profName) {
@@ -330,7 +357,15 @@ public class jfLionScheduler extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(filterTable);
 
         javax.swing.GroupLayout jpCalendarPanelLayout = new javax.swing.GroupLayout(jpCalendarPanel);
@@ -375,11 +410,14 @@ public class jfLionScheduler extends javax.swing.JFrame {
 
         jcbSunday.setText("Sunday");
 
+        jcbSubject.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
         jcbSubject.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbSubjectActionPerformed(evt);
             }
         });
+
+        jcbCourse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
 
         jsStartTime.setModel(new SpinnerDateModel());
         jsStartTime.setEditor(new JSpinner.DateEditor(jsStartTime, "hh:mm"));
@@ -533,6 +571,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
 
     private void jbFilterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFilterButtonActionPerformed
         // TODO: Display data based upon filter selections
+        
     }//GEN-LAST:event_jbFilterButtonActionPerformed
 
     private void jcbSubjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSubjectActionPerformed
