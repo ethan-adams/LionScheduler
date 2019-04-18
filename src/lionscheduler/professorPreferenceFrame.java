@@ -31,8 +31,9 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
     Date dTBreakStart;
     Date dTBreakEnd;
             
-    public professorPreferenceFrame() {
+    public professorPreferenceFrame() throws SQLException, ClassNotFoundException {
         initComponents();
+        insertComboBox();
     }
 
     /**
@@ -110,7 +111,7 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
         jSBreakEnd = new javax.swing.JSpinner();
         jLDash2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jbSubmit.setText("Submit");
         jbSubmit.addActionListener(new java.awt.event.ActionListener() {
@@ -224,7 +225,7 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
                                                         .addGap(30, 30, 30)
                                                         .addComponent(jlSunday))))
                                             .addComponent(jbSubmit))
-                                        .addGap(0, 0, Short.MAX_VALUE))
+                                        .addGap(0, 29, Short.MAX_VALUE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -244,7 +245,7 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jSBreakStart, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap(19, Short.MAX_VALUE))
+                        .addContainerGap(7, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(5, 5, 5)
                         .addComponent(jlProfessor)
@@ -311,7 +312,7 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -475,14 +476,22 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new professorPreferenceFrame().setVisible(true);
+                try {
+                    new professorPreferenceFrame().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(professorPreferenceFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(professorPreferenceFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
-        
+    }
+    
+    public static void insertComboBox() throws SQLException, ClassNotFoundException
+    {
         // Populating the combobox with all teachers from database
         Class.forName("com.mysql.jdbc.Driver");  
         Connection con=DriverManager.getConnection("jdbc:mysql://istdata.bk.psu.edu:3306/bmb5858","bmb5858","berks!bmb5858");
@@ -495,10 +504,6 @@ public class professorPreferenceFrame extends javax.swing.JFrame {
         {
             jCBProfessor.addItem(rs.getString(1));
         }
-
-        
-        
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
