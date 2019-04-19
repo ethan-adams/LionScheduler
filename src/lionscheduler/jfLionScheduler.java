@@ -262,6 +262,8 @@ public class jfLionScheduler extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JToolBar.Separator();
         jbPreferences = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
+        jbEditCourse = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
         jbGenerateReport = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jpCalendarPanel = new javax.swing.JPanel();
@@ -340,6 +342,18 @@ public class jfLionScheduler extends javax.swing.JFrame {
         });
         jtbTools.add(jbPreferences);
         jtbTools.add(jSeparator2);
+
+        jbEditCourse.setText("Edit Course");
+        jbEditCourse.setFocusable(false);
+        jbEditCourse.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbEditCourse.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jbEditCourse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEditCourseActionPerformed(evt);
+            }
+        });
+        jtbTools.add(jbEditCourse);
+        jtbTools.add(jSeparator3);
 
         jbGenerateReport.setText("Generate Report");
         jbGenerateReport.setFocusable(false);
@@ -587,6 +601,11 @@ public class jfLionScheduler extends javax.swing.JFrame {
        
     }//GEN-LAST:event_jcbSubjectActionPerformed
 
+    private void jbEditCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditCourseActionPerformed
+        editCourseScreen editCourse = new editCourseScreen();
+        editCourse.setVisible(true);
+    }//GEN-LAST:event_jbEditCourseActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -630,7 +649,9 @@ public class jfLionScheduler extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
+    private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JButton jbCreateCourse;
+    private javax.swing.JButton jbEditCourse;
     private javax.swing.JButton jbFilterButton;
     private javax.swing.JButton jbGenerateReport;
     private javax.swing.JButton jbPreferences;
