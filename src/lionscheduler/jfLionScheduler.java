@@ -47,6 +47,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
     static Connection con;
     Date dStartTime;
     Date dEndTime;
+    public static int row;
     
     /**
      * Creates new form jfLionScheduler
@@ -363,21 +364,34 @@ public class jfLionScheduler extends javax.swing.JFrame {
 
         filterTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Subject", "Num", "Description", "Section", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Name"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        filterTable.getTableHeader().setReorderingAllowed(false);
+        filterTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                filterTableMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(filterTable);
@@ -602,9 +616,17 @@ public class jfLionScheduler extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbSubjectActionPerformed
 
     private void jbEditCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditCourseActionPerformed
-        editCourseScreen editCourse = new editCourseScreen();
-        editCourse.setVisible(true);
+        try {
+            editCourseScreen editCourse = new editCourseScreen();
+            editCourse.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbEditCourseActionPerformed
+
+    private void filterTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filterTableMouseClicked
+                row = filterTable.getSelectedRow();
+    }//GEN-LAST:event_filterTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -642,7 +664,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
     }
 	
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable filterTable;
+    public javax.swing.JTable filterTable;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JScrollPane jScrollPane1;
