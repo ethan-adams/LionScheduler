@@ -111,7 +111,7 @@ public class editCourseScreen extends javax.swing.JFrame {
 
         jLabel6.setText("Starts at:");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10.11.12" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
 
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60" }));
 
@@ -119,7 +119,7 @@ public class editCourseScreen extends javax.swing.JFrame {
 
         jLabel7.setText("Ends at: ");
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10.11.12" }));
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
 
         jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60" }));
 
@@ -154,7 +154,7 @@ public class editCourseScreen extends javax.swing.JFrame {
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox6, 0, 1, Short.MAX_VALUE))
+                            .addComponent(jComboBox6, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jComboBox4, 0, 50, Short.MAX_VALUE)
@@ -287,10 +287,8 @@ public class editCourseScreen extends javax.swing.JFrame {
             System.out.println("End Time Selected");
             
             // Might need to revise this
-            // Might need to or three updates 1) Schedule 2)Course 3)Room
-            psAddSchedule = con.prepareStatement("update schedule"
-                    + "(BeginTime, EndTime, Mon, Tue, Wed, Thu, Fri, Sat, Sun) "
-                    + "values(?, ?, ?, ?, ?, ?, ?, ?, ?)");;
+            // Might need two or three updates 1) Schedule 2)Course 3)Room
+            psAddSchedule = con.prepareStatement("UPDATE Schedule SET BeginTime = ?, EndTime = ?, Mon = ?, Tue = ?, Wed = ?, Thu = ?, Fri = ?, Sat = ?, Sun = ?");
             psAddSchedule.setTime(1, beginTime);
             psAddSchedule.setTime(2, endTime);
             psAddSchedule.setBoolean(3, jCheckBox1.isSelected());
