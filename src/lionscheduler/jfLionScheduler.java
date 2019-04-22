@@ -311,6 +311,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
         } // catch
         jsEndTime = new javax.swing.JSpinner();
         jbFilterButton = new javax.swing.JButton();
+        jbRefresh = new javax.swing.JButton();
         jmMenu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -463,10 +464,26 @@ public class jfLionScheduler extends javax.swing.JFrame {
             }
         });
 
+        jbRefresh.setText("Refresh");
+        jbRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpFilterPanelLayout = new javax.swing.GroupLayout(jpFilterPanel);
         jpFilterPanel.setLayout(jpFilterPanelLayout);
         jpFilterPanelLayout.setHorizontalGroup(
             jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpFilterPanelLayout.createSequentialGroup()
+                .addGroup(jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jsStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlStartTimeLabel))
+                .addGap(18, 18, 18)
+                .addGroup(jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlEndTimeLabel)
+                    .addComponent(jsEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 16, Short.MAX_VALUE))
             .addGroup(jpFilterPanelLayout.createSequentialGroup()
                 .addGroup(jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpFilterPanelLayout.createSequentialGroup()
@@ -492,21 +509,17 @@ public class jfLionScheduler extends javax.swing.JFrame {
                     .addGroup(jpFilterPanelLayout.createSequentialGroup()
                         .addGap(65, 65, 65)
                         .addComponent(jlFilterByLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jpFilterPanelLayout.createSequentialGroup()
+                        .addGroup(jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpFilterPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jbFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jpFilterPanelLayout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addComponent(jbRefresh)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jpFilterPanelLayout.createSequentialGroup()
-                .addGroup(jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jsStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlStartTimeLabel))
-                .addGap(18, 18, 18)
-                .addGroup(jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlEndTimeLabel)
-                    .addComponent(jsEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 16, Short.MAX_VALUE))
-            .addGroup(jpFilterPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jbFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpFilterPanelLayout.setVerticalGroup(
             jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -550,6 +563,8 @@ public class jfLionScheduler extends javax.swing.JFrame {
                     .addComponent(jsStartTime))
                 .addGap(26, 26, 26)
                 .addComponent(jbFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jbRefresh)
                 .addContainerGap())
         );
 
@@ -628,6 +643,14 @@ public class jfLionScheduler extends javax.swing.JFrame {
                 row = filterTable.getSelectedRow();
     }//GEN-LAST:event_filterTableMouseClicked
 
+    private void jbRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRefreshActionPerformed
+        try {
+            displayAllData();
+        } catch (SQLException ex) {
+            Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbRefreshActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -677,6 +700,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
     private javax.swing.JButton jbFilterButton;
     private javax.swing.JButton jbGenerateReport;
     private javax.swing.JButton jbPreferences;
+    private javax.swing.JButton jbRefresh;
     public javax.swing.JComboBox<String> jcbCourse;
     private javax.swing.JCheckBox jcbFriday;
     private javax.swing.JCheckBox jcbMonday;

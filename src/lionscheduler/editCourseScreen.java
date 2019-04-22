@@ -10,6 +10,9 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import static lionscheduler.jfLionScheduler.con;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -25,6 +28,7 @@ public class editCourseScreen extends javax.swing.JFrame {
     static PreparedStatement psGetIdFaculty;
     static PreparedStatement psGetIdRoom;
     static PreparedStatement psAddSchedule;
+    jfLionScheduler newLS = new jfLionScheduler();
     
     
     /**
@@ -262,15 +266,10 @@ public class editCourseScreen extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try{  
+            jfLionScheduler newLS = new jfLionScheduler();
             Class.forName("com.mysql.jdbc.Driver");  
             Connection con = DriverManager.getConnection("jdbc:mysql://istdata.bk.psu.edu:3306/bmb5858","bmb5858","berks!bmb5858");  
             
-//            psAddCourse = con.prepareStatement("insert into course(Subject, Num)\n" +
-//            "values(?, ?);");
-//            psAddCourse.setInt(2, Integer.parseInt(jTFCouseNumber.getText()));
-//            psAddCourse.execute();
-//            
-//            System.out.println("Insert Course Completed");
             
             String strBT = jComboBox3.getSelectedItem() + ":" +
             jComboBox4.getSelectedItem() + ":00 " + jComboBox5.getSelectedItem();
@@ -286,9 +285,36 @@ public class editCourseScreen extends javax.swing.JFrame {
             
             System.out.println("End Time Selected");
             
+            
+            
+            
+//            String string1 = newLS.filterTable.getModel().getValueAt(newLS.row, 3).toString();
+//            int int2 = Integer.parseInt(string1);
+//            String sqlS = "SELECT Course_idCourse FROM Course,Schedule WHERE Subject = ? AND Num = ? AND Section = ?";
+//            PreparedStatement sql = con.prepareStatement(sqlS);
+//            sql.setString(1, jTFCouseSubject.getText());
+//            sql.setInt(2, text1);
+//            sql.setInt(3, int2);
+//            
+//            ResultSet rs = sql.executeQuery();
+//            
+//            while(rs.next())
+//            {
+//                System.out.println(rs.getInt("idCourse"));
+//            }
+            
             // Might need to revise this
             // Might need two or three updates 1) Schedule 2)Course 3)Room
-            psAddSchedule = con.prepareStatement("UPDATE Schedule SET BeginTime = ?, EndTime = ?, Mon = ?, Tue = ?, Wed = ?, Thu = ?, Fri = ?, Sat = ?, Sun = ?");
+            psAddSchedule = con.prepareStatement("UPDATE Schedule, Course SET BeginTime = ?, EndTime = ?, Mon = ?, Tue = ?, Wed = ?, Thu = ?, Fri = ?, Sat = ?, Sun = ? "
+                    + "WHERE Course_idCourse = "
+                    + "(SELECT idCourse FROM Course WHERE Subject = ? AND Num = ? AND Section = ?)");
+
+            
+            String text = jTFCouseNumber.getText();
+            int text1 = Integer.parseInt(text);
+            String string1 = newLS.filterTable.getModel().getValueAt(newLS.row, 3).toString();
+            int int2 = Integer.parseInt(string1);
+            
             psAddSchedule.setTime(1, beginTime);
             psAddSchedule.setTime(2, endTime);
             psAddSchedule.setBoolean(3, jCheckBox1.isSelected());
@@ -298,12 +324,23 @@ public class editCourseScreen extends javax.swing.JFrame {
             psAddSchedule.setBoolean(7, jCheckBox5.isSelected());
             psAddSchedule.setBoolean(8, jCheckBox6.isSelected());
             psAddSchedule.setBoolean(9, jCheckBox7.isSelected());
+            psAddSchedule.setString(10, jTFCouseSubject.getText());
+            psAddSchedule.setInt(11, text1);
+            psAddSchedule.setInt(12, int2);
+                       
             psAddSchedule.executeUpdate();
-
+            
             JOptionPane.showMessageDialog(null, "Course successfully edited!", "Add Course", JOptionPane.INFORMATION_MESSAGE);
             con.close();
             dispose();
-            }catch(Exception e){ System.out.println(e);}  
+            }
+        catch(Exception e){ System.out.println(e);}  
+        
+
+
+
+        
+
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -354,6 +391,7 @@ public class editCourseScreen extends javax.swing.JFrame {
         jTFCouseSubject.setText(string1);
         jTFCouseNumber.setText(string2);
     }
+    
     public editCourseScreen() throws SQLException {
 
         initComponents();
