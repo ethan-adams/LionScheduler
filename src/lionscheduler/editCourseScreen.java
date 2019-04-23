@@ -70,7 +70,7 @@ public class editCourseScreen extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Add Course");
+        jLabel1.setText("Edit Course");
 
         jLabel2.setText("Course:");
 

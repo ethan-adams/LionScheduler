@@ -185,7 +185,8 @@ public class jfLionScheduler extends javax.swing.JFrame {
         String strDisplayData = "SELECT Subject, Num, Description, Section, Mon, Tue, Wed, Thu, Fri, Sat, Sun, Name "
                                   + "FROM Schedule "
                                   + "RIGHT JOIN Course ON Course.idCourse = Schedule.Course_idCourse "
-                                  + "RIGHT JOIN Faculty ON Faculty.idFaculty = Schedule.Faculty_idFaculty";
+                                  + "RIGHT JOIN Faculty ON Faculty.idFaculty = Schedule.Faculty_idFaculty "
+                                  + "ORDER BY idCourse ASC";
                                 
         try
         {
@@ -613,7 +614,21 @@ public class jfLionScheduler extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCreateCourseActionPerformed
 
     private void jbFilterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFilterButtonActionPerformed
-        // TODO: Display data based upon filter selections
+        try {
+            String strDisplayData = "SELECT Subject, Num, Description, Section, Mon, Tue, Wed, Thu, Fri, Sat, Sun, Name "
+                    + "FROM Schedule "
+                    + "RIGHT JOIN Course ON Course.idCourse = Schedule.Course_idCourse "
+                    + "RIGHT JOIN Faculty ON Faculty.idFaculty = Schedule.Faculty_idFaculty "
+                    + "WHERE Name = ?"
+                    + "ORDER BY idCourse ASC";
+            PreparedStatement pstFilter = con.prepareStatement(strDisplayData);
+            pstFilter.setString(1, (String) jcbProfessor.getSelectedItem());
+            ResultSet rs = pstFilter.executeQuery();
+            
+            filterTable.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (SQLException ex) {
+            Logger.getLogger(jfLionScheduler.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_jbFilterButtonActionPerformed
 
