@@ -262,11 +262,12 @@ public class jfLionScheduler extends javax.swing.JFrame {
         jtbTools = new javax.swing.JToolBar();
         jbCreateCourse = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
+        jbViewCalendar = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
         jbPreferences = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         jbEditCourse = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
-        jbGenerateReport = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jpCalendarPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -314,15 +315,16 @@ public class jfLionScheduler extends javax.swing.JFrame {
         jbFilterButton = new javax.swing.JButton();
         jbRefresh = new javax.swing.JButton();
         jmMenu = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        jmFile = new javax.swing.JMenu();
+        jmiExit = new javax.swing.JMenuItem();
+        jmEdit = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Lion Scheduler");
 
         jtbTools.setRollover(true);
 
-        jbCreateCourse.setText("Create New Course");
+        jbCreateCourse.setText("Create a Course");
         jbCreateCourse.setFocusable(false);
         jbCreateCourse.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jbCreateCourse.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -334,7 +336,19 @@ public class jfLionScheduler extends javax.swing.JFrame {
         jtbTools.add(jbCreateCourse);
         jtbTools.add(jSeparator1);
 
-        jbPreferences.setText("Preferences");
+        jbViewCalendar.setText("View Calendar");
+        jbViewCalendar.setFocusable(false);
+        jbViewCalendar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbViewCalendar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jbViewCalendar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbViewCalendarActionPerformed(evt);
+            }
+        });
+        jtbTools.add(jbViewCalendar);
+        jtbTools.add(jSeparator3);
+
+        jbPreferences.setText("Professor Preferences");
         jbPreferences.setFocusable(false);
         jbPreferences.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jbPreferences.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -363,7 +377,6 @@ public class jfLionScheduler extends javax.swing.JFrame {
         jbGenerateReport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jbGenerateReport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jtbTools.add(jbGenerateReport);
-
         filterTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null},
@@ -569,11 +582,20 @@ public class jfLionScheduler extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jMenu1.setText("File");
-        jmMenu.add(jMenu1);
+        jmFile.setText("File");
 
-        jMenu2.setText("Edit");
-        jmMenu.add(jMenu2);
+        jmiExit.setText("Exit");
+        jmiExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiExitActionPerformed(evt);
+            }
+        });
+        jmFile.add(jmiExit);
+
+        jmMenu.add(jmFile);
+
+        jmEdit.setText("Edit");
+        jmMenu.add(jmEdit);
 
         setJMenuBar(jmMenu);
 
@@ -666,6 +688,62 @@ public class jfLionScheduler extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbRefreshActionPerformed
 
+    private void jbViewCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbViewCalendarActionPerformed
+        //open calendar view
+        JFrame frm = new JFrame();
+
+        ArrayList<CalendarEvent> events = new ArrayList<>();
+        events.add(new CalendarEvent(LocalDate.of(2019, 04, 15), LocalTime.of(14, 0), LocalTime.of(14, 20), "IST 411 11/11 14:00-14:20"));
+        events.add(new CalendarEvent(LocalDate.of(2019, 04, 16), LocalTime.of(9, 0), LocalTime.of(9, 20), "IST 261 14/11 9:00-9:20"));
+        events.add(new CalendarEvent(LocalDate.of(2019, 04, 17), LocalTime.of(12, 0), LocalTime.of(13, 20), "IST 411 15/11 12:00-13:20"));
+        events.add(new CalendarEvent(LocalDate.of(2019, 04, 18), LocalTime.of(9, 0), LocalTime.of(9, 20), "IST 261 16/11 9:00-9:20"));
+        events.add(new CalendarEvent(LocalDate.of(2019, 04, 19), LocalTime.of(12, 15), LocalTime.of(14, 20), "SRA 311 17/11 12:15-14:20"));
+        events.add(new CalendarEvent(LocalDate.of(2019, 04, 20), LocalTime.of(9, 30), LocalTime.of(10, 00), "Test 18/11 9:30-10:00"));
+        events.add(new CalendarEvent(LocalDate.of(2019, 04, 20), LocalTime.of(16, 00), LocalTime.of(16, 45), "Test 18/11 16:00-16:45"));
+
+        WeekCalendar cal = new WeekCalendar(events);
+
+        cal.addCalendarEventClickListener(e -> System.out.println(e.getCalendarEvent()));
+        cal.addCalendarEmptyClickListener(e -> {
+            System.out.println(e.getDateTime());
+            System.out.println(Calendar.roundTime(e.getDateTime().toLocalTime(), 30));
+        });
+
+        JButton goToTodayBtn = new JButton("Today");
+        goToTodayBtn.addActionListener(e -> cal.goToToday());
+
+        JButton nextWeekBtn = new JButton(">");
+        nextWeekBtn.addActionListener(e -> cal.nextWeek());
+
+        JButton prevWeekBtn = new JButton("<");
+        prevWeekBtn.addActionListener(e -> cal.prevWeek());
+
+        JButton nextMonthBtn = new JButton(">>");
+        nextMonthBtn.addActionListener(e -> cal.nextMonth());
+
+        JButton prevMonthBtn = new JButton("<<");
+        prevMonthBtn.addActionListener(e -> cal.prevMonth());
+
+        JPanel weekControls = new JPanel();
+        weekControls.add(prevMonthBtn);
+        weekControls.add(prevWeekBtn);
+        weekControls.add(goToTodayBtn);
+        weekControls.add(nextWeekBtn);
+        weekControls.add(nextMonthBtn);
+
+        frm.add(weekControls, BorderLayout.NORTH);
+
+        frm.add(cal, BorderLayout.CENTER);
+        frm.setSize(1000, 900);
+        frm.setVisible(true);
+        frm.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+    }//GEN-LAST:event_jbViewCalendarActionPerformed
+
+    private void jmiExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExitActionPerformed
+        dispose();
+    }//GEN-LAST:event_jmiExitActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -702,6 +780,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
     }
 	
     // Variables declaration - do not modify//GEN-BEGIN:variables
+
     public javax.swing.JTable filterTable;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -713,9 +792,9 @@ public class jfLionScheduler extends javax.swing.JFrame {
     private javax.swing.JButton jbCreateCourse;
     private javax.swing.JButton jbEditCourse;
     private javax.swing.JButton jbFilterButton;
-    private javax.swing.JButton jbGenerateReport;
     private javax.swing.JButton jbPreferences;
     private javax.swing.JButton jbRefresh;
+    private javax.swing.JButton jbViewCalendar;
     public javax.swing.JComboBox<String> jcbCourse;
     private javax.swing.JCheckBox jcbFriday;
     private javax.swing.JCheckBox jcbMonday;
@@ -733,7 +812,10 @@ public class jfLionScheduler extends javax.swing.JFrame {
     private javax.swing.JLabel jlProfessorLabel;
     private javax.swing.JLabel jlStartTimeLabel;
     private javax.swing.JLabel jlSubjectLabel;
+    private javax.swing.JMenu jmEdit;
+    private javax.swing.JMenu jmFile;
     private javax.swing.JMenuBar jmMenu;
+    private javax.swing.JMenuItem jmiExit;
     private javax.swing.JPanel jpCalendarPanel;
     private javax.swing.JPanel jpFilterPanel;
     private javax.swing.JSpinner jsEndTime;

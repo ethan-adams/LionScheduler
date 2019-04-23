@@ -116,7 +116,7 @@ public class jfLogInScreen extends javax.swing.JFrame {
             try {
                 // Add Home page class here
                 jfLionScheduler homePage = new jfLionScheduler();
-                
+
                 this.setVisible(false); // closes login screen
                 homePage.setVisible(true); // opens main screen  
             } // if
