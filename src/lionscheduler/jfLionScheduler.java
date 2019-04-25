@@ -266,7 +266,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JToolBar.Separator();
         jbEditCourse = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
-        jbGenerateReport = new javax.swing.JButton();
+        jbCalendarView = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jpCalendarPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -358,11 +358,16 @@ public class jfLionScheduler extends javax.swing.JFrame {
         jtbTools.add(jbEditCourse);
         jtbTools.add(jSeparator3);
 
-        jbGenerateReport.setText("Generate Report");
-        jbGenerateReport.setFocusable(false);
-        jbGenerateReport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jbGenerateReport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jtbTools.add(jbGenerateReport);
+        jbCalendarView.setText("Calendar View");
+        jbCalendarView.setFocusable(false);
+        jbCalendarView.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbCalendarView.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jbCalendarView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCalendarViewActionPerformed(evt);
+            }
+        });
+        jtbTools.add(jbCalendarView);
 
         filterTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -402,7 +407,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
         jpCalendarPanel.setLayout(jpCalendarPanelLayout);
         jpCalendarPanelLayout.setHorizontalGroup(
             jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 948, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 985, Short.MAX_VALUE)
         );
         jpCalendarPanelLayout.setVerticalGroup(
             jpCalendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -508,11 +513,10 @@ public class jfLionScheduler extends javax.swing.JFrame {
                             .addComponent(jcbCourse, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jcbProfessor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jpFilterPanelLayout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(jlFilterByLabel)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jpFilterPanelLayout.createSequentialGroup()
                         .addGroup(jpFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpFilterPanelLayout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addComponent(jlFilterByLabel))
                             .addGroup(jpFilterPanelLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jbFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -564,7 +568,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
                     .addComponent(jsStartTime))
                 .addGap(26, 26, 26)
                 .addComponent(jbFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbRefresh)
                 .addContainerGap())
         );
@@ -585,7 +589,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jpFilterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 987, Short.MAX_VALUE)
                 .addGap(9, 9, 9))
             .addComponent(jtbTools, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -666,6 +670,57 @@ public class jfLionScheduler extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbRefreshActionPerformed
 
+    private void jbCalendarViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCalendarViewActionPerformed
+        //open calendar view
+        JFrame frm = new JFrame();
+
+        ArrayList<CalendarEvent> events = new ArrayList<>();
+        events.add(new CalendarEvent(LocalDate.of(2019, 04, 23), LocalTime.of(14, 0), LocalTime.of(14, 20), "IST 210: Org Data - Section 1"));
+        events.add(new CalendarEvent(LocalDate.of(2019, 04, 23), LocalTime.of(9, 0), LocalTime.of(9, 20), "IST 210: Org Data - Section 2"));
+        events.add(new CalendarEvent(LocalDate.of(2019, 04, 25), LocalTime.of(14, 0), LocalTime.of(14, 20), "IST 210: Org Data - Section 1"));
+        events.add(new CalendarEvent(LocalDate.of(2019, 04, 25), LocalTime.of(9, 0), LocalTime.of(9, 20), "IST 210: Org Data - Section 2"));
+        events.add(new CalendarEvent(LocalDate.of(2019, 04, 26), LocalTime.of(12, 0), LocalTime.of(13, 20), "IST 496: Indep Studies - Section 1"));
+        events.add(new CalendarEvent(LocalDate.of(2019, 04, 23), LocalTime.of(9, 0), LocalTime.of(9, 20), "SRA 231: Decision Theory - Section 1"));
+        events.add(new CalendarEvent(LocalDate.of(2019, 04, 25), LocalTime.of(9, 0), LocalTime.of(9, 20), "SRA 231: Decision Theory - Section 1"));
+
+        WeekCalendar cal = new WeekCalendar(events);
+
+        cal.addCalendarEventClickListener(e -> System.out.println(e.getCalendarEvent()));
+        cal.addCalendarEmptyClickListener(e -> {
+            System.out.println(e.getDateTime());
+            System.out.println(Calendar.roundTime(e.getDateTime().toLocalTime(), 30));
+        });
+
+        JButton goToTodayBtn = new JButton("Today");
+        goToTodayBtn.addActionListener(e -> cal.goToToday());
+
+        JButton nextWeekBtn = new JButton(">");
+        nextWeekBtn.addActionListener(e -> cal.nextWeek());
+
+        JButton prevWeekBtn = new JButton("<");
+        prevWeekBtn.addActionListener(e -> cal.prevWeek());
+
+        JButton nextMonthBtn = new JButton(">>");
+        nextMonthBtn.addActionListener(e -> cal.nextMonth());
+
+        JButton prevMonthBtn = new JButton("<<");
+        prevMonthBtn.addActionListener(e -> cal.prevMonth());
+
+        JPanel weekControls = new JPanel();
+        weekControls.add(prevMonthBtn);
+        weekControls.add(prevWeekBtn);
+        weekControls.add(goToTodayBtn);
+        weekControls.add(nextWeekBtn);
+        weekControls.add(nextMonthBtn);
+
+        frm.add(weekControls, BorderLayout.NORTH);
+
+        frm.add(cal, BorderLayout.CENTER);
+        frm.setSize(1000, 900);
+        frm.setVisible(true);
+        frm.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jbCalendarViewActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -710,10 +765,10 @@ public class jfLionScheduler extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
+    private javax.swing.JButton jbCalendarView;
     private javax.swing.JButton jbCreateCourse;
     private javax.swing.JButton jbEditCourse;
     private javax.swing.JButton jbFilterButton;
-    private javax.swing.JButton jbGenerateReport;
     private javax.swing.JButton jbPreferences;
     private javax.swing.JButton jbRefresh;
     public javax.swing.JComboBox<String> jcbCourse;

@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package lionscheduler;
+
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-
 /**
  *
  * @author Bridg
@@ -18,15 +19,60 @@ import javax.swing.*;
 public class addCourseScreen extends javax.swing.JFrame {
 
     /**
-     * Creates new form addCourseScreen
+     * Creates new form addCourseScreen2
+     * 
      */
+    
     static PreparedStatement psAddCourse;
     static PreparedStatement psGetIdCourse;
     static PreparedStatement psGetIdFaculty;
     static PreparedStatement psGetIdRoom;
     static PreparedStatement psAddSchedule;
+    static PreparedStatement psCheckSchedule;
+    static PreparedStatement psCheckProfSchedule;
     
-    
+    public addCourseScreen() {
+        initComponents();
+                try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con=DriverManager.getConnection(
+            "jdbc:mysql://istdata.bk.psu.edu:3306/bmb5858","bmb5858","berks!bmb5858");
+
+            Statement stmt1 = con.createStatement();
+            Statement stmt2 = con.createStatement();
+            Statement stmt3 = con.createStatement();
+            ResultSet rsCourse = stmt1.executeQuery("select distinct subject from Course;");
+            ResultSet rsProfessor = stmt2.executeQuery("select Name from Faculty where name != '';");
+            ResultSet rsRoom = stmt3.executeQuery("select Location from Room;");
+           
+            while(rsCourse.next())
+            {
+                cbCourseName.addItem(rsCourse.getString(1));
+            }
+            while(rsProfessor.next())
+            {
+                jComboBox1.addItem(rsProfessor.getString(1));
+            }
+            while(rsRoom.next())
+            {
+                jComboBox2.addItem(rsRoom.getString(1));
+            }
+            
+            stmt1.close();
+            stmt2.close();
+            stmt3.close();
+            rsCourse.close();
+            rsProfessor.close();
+            rsRoom.close();
+            con.close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(addCourseScreen.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(addCourseScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,7 +108,7 @@ public class addCourseScreen extends javax.swing.JFrame {
         jComboBox8 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -244,51 +290,13 @@ public class addCourseScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbCourseNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCourseNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbCourseNameActionPerformed
-
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
-
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try{  
             Class.forName("com.mysql.jdbc.Driver");  
             Connection con=DriverManager.getConnection(  
-            "jdbc:mysql://istdata.bk.psu.edu:3306/bmb5858","bmb5858","berks!bmb5858");  
-            
-            psAddCourse = con.prepareStatement("insert into course(Subject, Num)\n" +
-            "values(?, ?);");
-            psAddCourse.setString(1, (String)cbCourseName.getSelectedItem());
-            psAddCourse.setInt(2, Integer.parseInt(jTextField1.getText()));
-            psAddCourse.execute();
-            
-            System.out.println("Insert Course Completed");
-            
-            psGetIdCourse = con.prepareStatement("select idCourse from course"
-            + " where Subject = ? AND Num = ?");
-            psGetIdCourse.setString(1, (String)cbCourseName.getSelectedItem());
-            psGetIdCourse.setInt(2, Integer.parseInt(jTextField1.getText()));
-            ResultSet rsIdCourse = psGetIdCourse.executeQuery();
-            rsIdCourse.next();
-            int idCourse = rsIdCourse.getInt(1);
-            
-            System.out.println("Course ID Selected");
-                  
-            psGetIdFaculty = con.prepareStatement("select idFaculty from faculty"
-            + " where Name LIKE ?");
-            psGetIdFaculty.setString(1, (String)jComboBox1.getSelectedItem());
-            ResultSet rsIdFaculty = psGetIdFaculty.executeQuery();
-            rsIdFaculty.next();
-            int idFaculty = rsIdFaculty.getInt(1);
-            
-            System.out.println("Faculty ID Selected");
-            
+            "jdbc:mysql://istdata.bk.psu.edu:3306/bmb5858","bmb5858","berks!bmb5858"); 
+               
+            // Schedule Conflict resolution
             psGetIdRoom = con.prepareStatement("select FacilID from Room " + 
             "where Location = ?");
             psGetIdRoom.setString(1, (String)jComboBox2.getSelectedItem());
@@ -311,108 +319,133 @@ public class addCourseScreen extends javax.swing.JFrame {
             
             System.out.println("End Time Selected");
             
-            psAddSchedule = con.prepareStatement("insert into schedule(Faculty_idFaculty, "
-            + "Course_idCourse, Room_idRoom, BeginTime, EndTime, Mon, Tue, Wed, Thu, Fri, "
-            + "Sat, Sun) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            psAddSchedule.setInt(1, idFaculty);
-            psAddSchedule.setInt(2, idCourse);
-            psAddSchedule.setInt(3, idRoom);
-            psAddSchedule.setTime(4, beginTime);
-            psAddSchedule.setTime(5, endTime);
-            psAddSchedule.setBoolean(6, jCheckBox1.isSelected());
-            psAddSchedule.setBoolean(7, jCheckBox2.isSelected());
-            psAddSchedule.setBoolean(8, jCheckBox3.isSelected());
-            psAddSchedule.setBoolean(9, jCheckBox4.isSelected());
-            psAddSchedule.setBoolean(10, jCheckBox5.isSelected());
-            psAddSchedule.setBoolean(11, jCheckBox6.isSelected());
-            psAddSchedule.setBoolean(12, jCheckBox7.isSelected());
-            psAddSchedule.executeUpdate();
+            psGetIdFaculty = con.prepareStatement("select idFaculty from faculty"
+                + " where Name LIKE ?");
+                psGetIdFaculty.setString(1, (String)jComboBox1.getSelectedItem());
+                ResultSet rsIdFaculty = psGetIdFaculty.executeQuery();
+                rsIdFaculty.next();
+                int idFaculty = rsIdFaculty.getInt(1);
+
+                System.out.println("Faculty ID Selected");
             
-            System.out.println("Inserted Successfully");
-            JOptionPane.showMessageDialog(null, "Course successfully created!", "Add Course", JOptionPane.INFORMATION_MESSAGE);
-            con.close();
-            dispose();
-            }catch(Exception e){ System.out.println(e);}  
-        
+            psCheckSchedule = con.prepareStatement("select Room_idRoom, BeginTime, EndTime, \n" +
+            "Mon, Tue, Wed, Thu, Fri, Sat, Sun\n" +
+            "from schedule\n" +
+            "where Room_idRoom = ? and BeginTime >= ? \n" +
+            "and EndTime <= ? and (Mon = ? or Tue = ? or \n" +
+            "Wed = ? or Thu = ? or Fri = ? or Sat = ? or Sun = ?)");
+            psCheckSchedule.setInt(1, idRoom);
+            psCheckSchedule.setTime(2, beginTime);
+            psCheckSchedule.setTime(3, endTime);
+            psCheckSchedule.setBoolean(4, jCheckBox1.isSelected());
+            psCheckSchedule.setBoolean(5, jCheckBox2.isSelected());
+            psCheckSchedule.setBoolean(6, jCheckBox3.isSelected());
+            psCheckSchedule.setBoolean(7, jCheckBox4.isSelected());
+            psCheckSchedule.setBoolean(8, jCheckBox5.isSelected());
+            psCheckSchedule.setBoolean(9, jCheckBox6.isSelected());
+            psCheckSchedule.setBoolean(10, jCheckBox7.isSelected());
+            ResultSet rsCheckSchedule = psCheckSchedule.executeQuery();
+            
+            psCheckProfSchedule = con.prepareStatement("select Faculty_idFaculty from schedule"
+            + " where Faculty_idFaculty = ? and BeginTime >= ? and EndTime <= ? and (Mon = ? or Tue = ? or \n" +
+            "Wed = ? or Thu = ? or Fri = ? or Sat = ? or Sun = ?);");
+            psCheckProfSchedule.setInt(1, idFaculty);
+            psCheckProfSchedule.setTime(2, beginTime);
+            psCheckProfSchedule.setTime(3, endTime);
+            psCheckProfSchedule.setBoolean(4, jCheckBox1.isSelected());
+            psCheckProfSchedule.setBoolean(5, jCheckBox2.isSelected());
+            psCheckProfSchedule.setBoolean(6, jCheckBox3.isSelected());
+            psCheckProfSchedule.setBoolean(7, jCheckBox4.isSelected());
+            psCheckProfSchedule.setBoolean(8, jCheckBox5.isSelected());
+            psCheckProfSchedule.setBoolean(9, jCheckBox6.isSelected());
+            psCheckProfSchedule.setBoolean(10, jCheckBox7.isSelected());
+            ResultSet rsCheckProfSchedule = psCheckProfSchedule.executeQuery();
+            
+            
+            if(rsCheckSchedule.next())
+            {
+                JOptionPane.showMessageDialog(null, "The course time or room conflicts with an existing course!", 
+                        "Schedule Conflict", JOptionPane.ERROR_MESSAGE);
+                
+                con.close();
+            }
+            else if(rsCheckProfSchedule.next())
+            {
+                JOptionPane.showMessageDialog(null, "The course time conflicts with the professor's schedule!", 
+                        "Schedule Conflict", JOptionPane.ERROR_MESSAGE);
+                con.close();
+            }
+            else
+            {
+                // All Validation is Checked and course can be inserted
+                psAddCourse = con.prepareStatement("insert into course(Subject, Num)\n" +
+                "values(?, ?);");
+                psAddCourse.setString(1, (String)cbCourseName.getSelectedItem());
+                psAddCourse.setInt(2, Integer.parseInt(jTextField1.getText()));
+                psAddCourse.execute();
+
+                System.out.println("Insert Course Completed");
+
+                psGetIdCourse = con.prepareStatement("select idCourse from course"
+                + " where Subject = ? AND Num = ?");
+                psGetIdCourse.setString(1, (String)cbCourseName.getSelectedItem());
+                psGetIdCourse.setInt(2, Integer.parseInt(jTextField1.getText()));
+                ResultSet rsIdCourse = psGetIdCourse.executeQuery();
+                rsIdCourse.next();
+                int idCourse = rsIdCourse.getInt(1);
+
+                System.out.println("Course ID Selected");
+
+
+                psAddSchedule = con.prepareStatement("insert into schedule(Faculty_idFaculty, "
+                + "Course_idCourse, Room_idRoom, BeginTime, EndTime, Mon, Tue, Wed, Thu, Fri, "
+                + "Sat, Sun) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                psAddSchedule.setInt(1, idFaculty);
+                psAddSchedule.setInt(2, idCourse);
+                psAddSchedule.setInt(3, idRoom);
+                psAddSchedule.setTime(4, beginTime);
+                psAddSchedule.setTime(5, endTime);
+                psAddSchedule.setBoolean(6, jCheckBox1.isSelected());
+                psAddSchedule.setBoolean(7, jCheckBox2.isSelected());
+                psAddSchedule.setBoolean(8, jCheckBox3.isSelected());
+                psAddSchedule.setBoolean(9, jCheckBox4.isSelected());
+                psAddSchedule.setBoolean(10, jCheckBox5.isSelected());
+                psAddSchedule.setBoolean(11, jCheckBox6.isSelected());
+                psAddSchedule.setBoolean(12, jCheckBox7.isSelected());
+                psAddSchedule.executeUpdate();
+
+                System.out.println("Inserted Successfully");
+                JOptionPane.showMessageDialog(null, "Course successfully created!", "Add Course", JOptionPane.INFORMATION_MESSAGE);
+                con.close();  
+                dispose();
+            }
+                       
+            }
+            catch(SQLIntegrityConstraintViolationException mySQL){
+            JOptionPane.showMessageDialog(null, "The course time or room conflicts with an existing course!", 
+                        "Schedule Conflict", JOptionPane.ERROR_MESSAGE);
+        }
+        catch(Exception e){ System.out.println(e);}  
+                                                
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cbCourseNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCourseNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCourseNameActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cbCourseName;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
-    private javax.swing.JCheckBox jCheckBox7;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JComboBox<String> jComboBox6;
-    private javax.swing.JComboBox<String> jComboBox7;
-    private javax.swing.JComboBox<String> jComboBox8;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField jTextField1;
-    // End of variables declaration//GEN-END:variables
-    
-    
-    public addCourseScreen() {          
-        initComponents();
-                try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con=DriverManager.getConnection(
-            "jdbc:mysql://istdata.bk.psu.edu:3306/bmb5858","bmb5858","berks!bmb5858");
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
 
-            Statement stmt1 = con.createStatement();
-            Statement stmt2 = con.createStatement();
-            Statement stmt3 = con.createStatement();
-            ResultSet rsCourse = stmt1.executeQuery("select distinct subject from Course;");
-            ResultSet rsProfessor = stmt2.executeQuery("select Name from Faculty where name != '';");
-            ResultSet rsRoom = stmt3.executeQuery("select Location from Room;");
-           
-            while(rsCourse.next())
-            {
-                cbCourseName.addItem(rsCourse.getString(1));
-            }
-            while(rsProfessor.next())
-            {
-                jComboBox1.addItem(rsProfessor.getString(1));
-            }
-            while(rsRoom.next())
-            {
-                jComboBox2.addItem(rsRoom.getString(1));
-            }
-            
-            stmt1.close();
-            stmt2.close();
-            stmt3.close();
-            rsCourse.close();
-            rsProfessor.close();
-            rsRoom.close();
-            con.close();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(addCourseScreen.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(addCourseScreen.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        
-    }
-        /**
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -446,4 +479,32 @@ public class addCourseScreen extends javax.swing.JFrame {
             }
         });
     }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbCourseName;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JCheckBox jCheckBox4;
+    private javax.swing.JCheckBox jCheckBox5;
+    private javax.swing.JCheckBox jCheckBox6;
+    private javax.swing.JCheckBox jCheckBox7;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> jComboBox5;
+    private javax.swing.JComboBox<String> jComboBox6;
+    private javax.swing.JComboBox<String> jComboBox7;
+    private javax.swing.JComboBox<String> jComboBox8;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JTextField jTextField1;
+    // End of variables declaration//GEN-END:variables
 }
