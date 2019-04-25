@@ -315,6 +315,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
         jbRefresh = new javax.swing.JButton();
         jmMenu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jmiExit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -574,6 +575,15 @@ public class jfLionScheduler extends javax.swing.JFrame {
         );
 
         jMenu1.setText("File");
+
+        jmiExit.setText("Exit");
+        jmiExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiExitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiExit);
+
         jmMenu.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -589,7 +599,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jpFilterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 987, Short.MAX_VALUE)
+                .addComponent(jScrollPane2)
                 .addGap(9, 9, 9))
             .addComponent(jtbTools, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -741,6 +751,10 @@ public class jfLionScheduler extends javax.swing.JFrame {
         frm.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jbCalendarViewActionPerformed
 
+    private void jmiExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jmiExitActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -809,6 +823,7 @@ public class jfLionScheduler extends javax.swing.JFrame {
     private javax.swing.JLabel jlStartTimeLabel;
     private javax.swing.JLabel jlSubjectLabel;
     private javax.swing.JMenuBar jmMenu;
+    private javax.swing.JMenuItem jmiExit;
     private javax.swing.JPanel jpCalendarPanel;
     private javax.swing.JPanel jpFilterPanel;
     private javax.swing.JSpinner jsEndTime;
