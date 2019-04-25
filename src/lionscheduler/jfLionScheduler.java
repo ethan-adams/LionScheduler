@@ -675,14 +675,34 @@ public class jfLionScheduler extends javax.swing.JFrame {
         JFrame frm = new JFrame();
 
         ArrayList<CalendarEvent> events = new ArrayList<>();
-        events.add(new CalendarEvent(LocalDate.of(2019, 04, 23), LocalTime.of(14, 0), LocalTime.of(14, 20), "IST 210: Org Data - Section 1"));
-        events.add(new CalendarEvent(LocalDate.of(2019, 04, 23), LocalTime.of(9, 0), LocalTime.of(9, 20), "IST 210: Org Data - Section 2"));
-        events.add(new CalendarEvent(LocalDate.of(2019, 04, 25), LocalTime.of(14, 0), LocalTime.of(14, 20), "IST 210: Org Data - Section 1"));
-        events.add(new CalendarEvent(LocalDate.of(2019, 04, 25), LocalTime.of(9, 0), LocalTime.of(9, 20), "IST 210: Org Data - Section 2"));
-        events.add(new CalendarEvent(LocalDate.of(2019, 04, 26), LocalTime.of(12, 0), LocalTime.of(13, 20), "IST 496: Indep Studies - Section 1"));
-        events.add(new CalendarEvent(LocalDate.of(2019, 04, 23), LocalTime.of(9, 0), LocalTime.of(9, 20), "SRA 231: Decision Theory - Section 1"));
-        events.add(new CalendarEvent(LocalDate.of(2019, 04, 25), LocalTime.of(9, 0), LocalTime.of(9, 20), "SRA 231: Decision Theory - Section 1"));
-
+        
+        int marchDayNum = 5;
+        for (int i=0; i<4; i++) {
+            events.add(new CalendarEvent(LocalDate.of(2019, 03, marchDayNum), LocalTime.of(14, 0), LocalTime.of(14, 20), "IST 210: Org Data - Section 1"));
+            events.add(new CalendarEvent(LocalDate.of(2019, 03, marchDayNum), LocalTime.of(9, 0), LocalTime.of(9, 20), "IST 210: Org Data - Section 2"));
+            events.add(new CalendarEvent(LocalDate.of(2019, 03, marchDayNum+2), LocalTime.of(14, 0), LocalTime.of(14, 20), "IST 210: Org Data - Section 1"));
+            events.add(new CalendarEvent(LocalDate.of(2019, 03, marchDayNum+2), LocalTime.of(9, 0), LocalTime.of(9, 20), "IST 210: Org Data - Section 2"));
+            events.add(new CalendarEvent(LocalDate.of(2019, 03, marchDayNum+3), LocalTime.of(12, 0), LocalTime.of(13, 20), "IST 496: Indep Studies - Section 1"));
+            events.add(new CalendarEvent(LocalDate.of(2019, 03, marchDayNum), LocalTime.of(9, 0), LocalTime.of(9, 20), "SRA 231: Decision Theory - Section 1"));
+            events.add(new CalendarEvent(LocalDate.of(2019, 03, marchDayNum+2), LocalTime.of(9, 0), LocalTime.of(9, 20), "SRA 231: Decision Theory - Section 1"));
+            
+            marchDayNum += 7;
+        }
+        
+        
+        int aprilDayNum = 2;
+        for (int i=0; i<4; i++) {
+            events.add(new CalendarEvent(LocalDate.of(2019, 04, aprilDayNum), LocalTime.of(14, 0), LocalTime.of(14, 20), "IST 210: Org Data - Section 1"));
+            events.add(new CalendarEvent(LocalDate.of(2019, 04, aprilDayNum), LocalTime.of(9, 0), LocalTime.of(9, 20), "IST 210: Org Data - Section 2"));
+            events.add(new CalendarEvent(LocalDate.of(2019, 04, aprilDayNum+2), LocalTime.of(14, 0), LocalTime.of(14, 20), "IST 210: Org Data - Section 1"));
+            events.add(new CalendarEvent(LocalDate.of(2019, 04, aprilDayNum+2), LocalTime.of(9, 0), LocalTime.of(9, 20), "IST 210: Org Data - Section 2"));
+            events.add(new CalendarEvent(LocalDate.of(2019, 04, aprilDayNum+3), LocalTime.of(12, 0), LocalTime.of(13, 20), "IST 496: Indep Studies - Section 1"));
+            events.add(new CalendarEvent(LocalDate.of(2019, 04, aprilDayNum), LocalTime.of(9, 0), LocalTime.of(9, 20), "SRA 231: Decision Theory - Section 1"));
+            events.add(new CalendarEvent(LocalDate.of(2019, 04, aprilDayNum+2), LocalTime.of(9, 0), LocalTime.of(9, 20), "SRA 231: Decision Theory - Section 1"));
+            
+            aprilDayNum += 7;
+        }
+        
         WeekCalendar cal = new WeekCalendar(events);
 
         cal.addCalendarEventClickListener(e -> System.out.println(e.getCalendarEvent()));
